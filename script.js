@@ -67,13 +67,28 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   hamburgerBtn?.addEventListener('click', () => {
-    navMenu.classList.toggle('open');
+    const isOpen = navMenu.classList.toggle('open');
+    hamburgerBtn.classList.toggle('active', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
       navMenu.classList.remove('open');
+      hamburgerBtn.classList.remove('active');
+      document.body.style.overflow = '';
     });
+  });
+
+  // Close nav on click outside
+  document.addEventListener('click', (e) => {
+    if (navMenu?.classList.contains('open') && 
+        !navMenu.contains(e.target) && 
+        !hamburgerBtn.contains(e.target)) {
+      navMenu.classList.remove('open');
+      hamburgerBtn.classList.remove('active');
+      document.body.style.overflow = '';
+    }
   });
 
   // -------------------------------------------------------------

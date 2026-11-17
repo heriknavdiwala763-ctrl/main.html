@@ -768,26 +768,202 @@ button {
   padding: 1.5rem 0.5rem;
 }
 
+/* ==========================================================================
+   ULTRA-LUXURY 3D PERSPECTIVE & TILT ENGINE
+   ========================================================================== */
+.collections-scene,
+.stories-scene,
+.cinematic-scene,
+.prewedding-scene,
+.services-scene,
+.booking-scene {
+  perspective: 1600px;
+}
+
+.collections-track,
+.portfolio-slider,
+.services-grid,
+.asym-gallery,
+.booking-container,
+.cinematic-container {
+  transform-style: preserve-3d;
+}
+
+/* 3D Collection Cards */
 .collection-card {
   width: 320px;
   background: var(--bg-aakar-card);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(212, 175, 55, 0.25);
-  border-radius: 200px 200px 30px 30px; /* Elegant Luxury Round Arch Silhouette */
-  transition: var(--transition-smooth);
+  border-radius: 200px 200px 30px 30px;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   padding: 1.8rem 1.4rem 2rem;
   box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .collection-card:hover {
-  transform: translateY(-10px) scale(1.02);
+  transform: translateY(-14px) rotateX(6deg) rotateY(-4deg) translateZ(20px);
   background: var(--bg-aakar-card-hover);
   border-color: var(--gold-primary);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 25px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 35px 65px rgba(0,0,0,0.85), 0 0 35px rgba(212, 175, 55, 0.35);
+}
+
+.collection-card .col-img-box {
+  transform: translateZ(30px);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+}
+
+.collection-card:hover .col-img-box {
+  transform: translateZ(45px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 30px rgba(212, 175, 55, 0.5);
+}
+
+.collection-card .col-info {
+  transform: translateZ(20px);
+}
+
+/* 3D Story Portfolio Cards */
+.story-card {
+  min-width: 320px;
+  width: 320px;
+  background: var(--bg-aakar-card);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 200px 200px 30px 30px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.8rem 1.4rem 2rem;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.story-card:hover {
+  transform: translateY(-14px) rotateX(6deg) rotateY(4deg) translateZ(20px);
+  background: var(--bg-aakar-card-hover);
+  border-color: var(--gold-primary);
+  box-shadow: 0 35px 65px rgba(0,0,0,0.85), 0 0 35px rgba(212, 175, 55, 0.35);
+}
+
+.story-card .story-thumb-wrap {
+  transform: translateZ(30px);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+}
+
+.story-card:hover .story-thumb-wrap {
+  transform: translateZ(45px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 30px rgba(212, 175, 55, 0.5);
+}
+
+.story-card .story-info {
+  transform: translateZ(20px);
+}
+
+/* 3D Asymmetric Pre-Wedding Gallery Cards */
+.asym-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  background: var(--bg-card);
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.4s ease;
+}
+
+.asym-card:hover {
+  transform: translateY(-8px) scale(1.02) translateZ(25px);
+  border-color: var(--gold-primary);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.9), 0 0 30px rgba(212, 175, 55, 0.25);
+  z-index: 10;
+}
+
+.asym-card .asym-overlay {
+  transform: translateZ(25px);
+}
+
+/* 3D Bespoke Service Cards */
+.service-card {
+  background: var(--bg-aakar-card);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  overflow: hidden;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.service-card:hover {
+  transform: translateY(-12px) rotateX(4deg) translateZ(15px);
+  background: var(--bg-aakar-card-hover);
+  border-color: var(--border-gold);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.85), 0 0 30px rgba(212, 175, 55, 0.2);
+}
+
+.service-card .svc-img {
+  transform: translateZ(15px);
+}
+
+.service-card .svc-body {
+  transform: translateZ(25px);
+}
+
+/* 3D Experience Badge & Philosophy Image Frame */
+.phil-image-col {
+  transform-style: preserve-3d;
+}
+
+.phil-img-wrap {
+  transform-style: preserve-3d;
+}
+
+.phil-experience-badge {
+  transform: translateZ(40px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+}
+
+.phil-img-wrap:hover .phil-experience-badge {
+  transform: translateZ(55px) scale(1.06);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.9), 0 0 30px rgba(212, 175, 55, 0.4);
+}
+
+/* 3D Booking Form Container */
+.booking-form-wrapper {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+}
+
+.booking-form-wrapper:hover {
+  transform: translateY(-6px) rotateX(2deg) translateZ(10px);
+  box-shadow: 0 35px 75px rgba(0,0,0,0.95), 0 0 35px rgba(212, 175, 55, 0.25);
+}
+
+/* 3D Floating Action Buttons */
+.float-wa, .auto-scroll-toggle, .back-to-top {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.float-wa:hover {
+  transform: translateY(-4px) scale(1.12) translateZ(20px);
+  box-shadow: 0 15px 30px rgba(37, 211, 102, 0.5);
+}
+
+.auto-scroll-toggle:hover, .back-to-top:hover {
+  transform: translateY(-4px) scale(1.1) translateZ(20px);
+  box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
 }
 
 .col-img-box {
@@ -1772,6 +1948,84 @@ button {
 .quick-contact-row i {
   color: var(--gold-primary);
   margin-right: 0.6rem;
+}
+
+/* Luxury Contacts Dual Grid */
+.contacts-dual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 0.8rem;
+}
+
+.contact-person-card {
+  background: rgba(30, 12, 14, 0.7);
+  border: 1px solid var(--border-gold);
+  padding: 1.1rem 1.3rem;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.contact-person-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-primary);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.contact-person-phone {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--gold-champagne);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.contact-person-phone:hover {
+  color: #fff;
+}
+
+.contact-person-phone i {
+  color: var(--gold-primary);
+  font-size: 0.95rem;
+}
+
+.contact-person-name {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  letter-spacing: 1.5px;
+  color: var(--text-ivory);
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+
+.contact-person-role {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.contact-wa-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #25d366;
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  margin-top: 0.4rem;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.contact-wa-link:hover {
+  opacity: 0.85;
 }
 
 .booking-form-wrapper {
@@ -2798,8 +3052,14 @@ button {
 
   .contact-quick-badges {
     width: 100%;
-    max-width: 320px;
+    max-width: 420px;
     margin: 0 auto;
+  }
+
+  .contacts-dual-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    width: 100%;
   }
 
   .wa-direct-btn,

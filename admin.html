@@ -1142,10 +1142,26 @@
                   <input type="text" id="storyLocation" placeholder="e.g. Umaid Bhawan Palace, Jodhpur" required>
                 </div>
                 <div class="form-group">
-                  <label>PHOTOGRAPH URL (HD) *</label>
-                  <input type="url" id="storyImageUrl" placeholder="https://images.unsplash.com/..." required>
+                  <label>UPLOAD PHOTO OR ENTER IMAGE URL *</label>
+                  <div style="display: flex; gap: 0.6rem; margin-bottom: 0.6rem;">
+                    <input type="file" id="storyFileInput" accept="image/*" style="display: none;">
+                    <button type="button" class="btn-gold" id="btn-browse-photo" style="padding: 0.6rem 1.2rem; font-size: 0.72rem; white-space: nowrap;">
+                      <i class="fa-solid fa-folder-open"></i> CHOOSE FROM DEVICE
+                    </button>
+                    <span id="chosen-file-name" style="font-size: 0.75rem; color: var(--gold-light); align-self: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></span>
+                  </div>
+                  <input type="text" id="storyImageUrl" placeholder="Or paste Image URL (https://...)">
                 </div>
               </div>
+
+              <!-- Live Image Preview Box -->
+              <div id="image-preview-wrap" style="display: none; margin-bottom: 1.5rem; text-align: left;">
+                <label style="font-size: 0.7rem; letter-spacing: 2px; color: var(--gold); display: block; margin-bottom: 0.5rem;">IMAGE PREVIEW:</label>
+                <div style="width: 140px; height: 140px; border-radius: 50%; overflow: hidden; border: 2px solid var(--gold); box-shadow: 0 0 20px rgba(212,175,55,0.3);">
+                  <img id="image-preview" src="" alt="Preview" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+              </div>
+
               <button type="submit" class="btn-gold"><i class="fa-solid fa-plus"></i> PUBLISH TO WEBSITE</button>
             </form>
           </div>
@@ -1443,12 +1459,66 @@
       }
     };
 
+    // Image File Selection & Preview Handling
+    const storyFileInput = document.getElementById('storyFileInput');
+    const btnBrowsePhoto = document.getElementById('btn-browse-photo');
+    const chosenFileName = document.getElementById('chosen-file-name');
+    const storyImageUrl = document.getElementById('storyImageUrl');
+    const imagePreviewWrap = document.getElementById('image-preview-wrap');
+    const imagePreview = document.getElementById('image-preview');
+
+    let currentImageData = '';
+
+    btnBrowsePhoto?.addEventListener('click', () => {
+      storyFileInput.click();
+    });
+
+    storyFileInput?.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        if (!file.type.startsWith('image/')) {
+          alert('Please select a valid image file (JPEG, PNG, WEBP).');
+          return;
+        }
+
+        chosenFileName.textContent = file.name;
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          currentImageData = evt.target.result;
+          imagePreview.src = currentImageData;
+          imagePreviewWrap.style.display = 'block';
+          storyImageUrl.value = ''; // clear url input if local file is used
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    storyImageUrl?.addEventListener('input', () => {
+      const url = storyImageUrl.value.trim();
+      if (url) {
+        currentImageData = url;
+        imagePreview.src = currentImageData;
+        imagePreviewWrap.style.display = 'block';
+        chosenFileName.textContent = '';
+        if (storyFileInput) storyFileInput.value = '';
+      } else if (!storyFileInput?.files?.length) {
+        imagePreviewWrap.style.display = 'none';
+        currentImageData = '';
+      }
+    });
+
     addStoryForm?.addEventListener('submit', (e) => {
       e.preventDefault();
       const title = document.getElementById('storyTitle').value.trim();
       const category = document.getElementById('storyCategory').value;
       const location = document.getElementById('storyLocation').value.trim();
-      const image = document.getElementById('storyImageUrl').value.trim();
+      const urlInput = storyImageUrl.value.trim();
+      const image = currentImageData || urlInput;
+
+      if (!image) {
+        alert('Please choose an image file from your device OR enter a valid Image URL.');
+        return;
+      }
 
       const select = document.getElementById('storyCategory');
       const catLabel = select.options[select.selectedIndex].text;
@@ -1456,9 +1526,13 @@
       const list = getStories();
       list.unshift({ id: Date.now(), title, category, catLabel, location, image });
       localStorage.setItem('aakar_custom_stories', JSON.stringify(list));
+      
       addStoryForm.reset();
+      currentImageData = '';
+      chosenFileName.textContent = '';
+      imagePreviewWrap.style.display = 'none';
       renderStories();
-      alert('New story published! It will appear immediately on the front website portfolio.');
+      alert('New story published successfully! It will appear immediately on the website.');
     });
 
     // ==========================================

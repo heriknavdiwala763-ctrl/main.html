@@ -664,4 +664,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     floatCtrlWrap.insertBefore(toggleBtn, floatCtrlWrap.firstChild);
   }
+
+  // -------------------------------------------------------------
+  // 10. Interactive 3D Perspective Tilt on Hover for Luxury Cards
+  // -------------------------------------------------------------
+  const tiltElements = document.querySelectorAll('.collection-card, .story-card, .service-card, .asym-card');
+
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    tiltElements.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -10;
+        const rotateY = ((x - centerX) / centerX) * 10;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-12px) translateZ(20px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
 });

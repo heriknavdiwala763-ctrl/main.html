@@ -144,14 +144,6 @@
         </div>
       </div>
 
-      <!-- Hero Navigation Arrows -->
-      <button class="hero-nav prev-arrow" id="hero-prev" aria-label="Previous Slide">
-        <i class="fa-solid fa-angle-left"></i>
-      </button>
-      <button class="hero-nav next-arrow" id="hero-next" aria-label="Next Slide">
-        <i class="fa-solid fa-angle-right"></i>
-      </button>
-
       <!-- Hero Pagination Minimalist Indicators -->
       <div class="hero-pagination" id="hero-pagination">
         <span class="dot active" data-index="0"></span>
@@ -334,11 +326,6 @@
 
       <!-- Gallery Slider Container -->
       <div class="portfolio-slider-container">
-        <button class="port-arrow port-prev" id="port-prev" aria-label="Previous Stories"><i
-            class="fa-solid fa-chevron-left"></i></button>
-        <button class="port-arrow port-next" id="port-next" aria-label="Next Stories"><i
-            class="fa-solid fa-chevron-right"></i></button>
-
         <div class="portfolio-slider" id="portfolio-slider">
           <!-- Dynamic cards loaded via JS / Supabase -->
         </div>
@@ -564,12 +551,33 @@
             commissions per calendar year to preserve unmatched editorial attention.</p>
 
           <div class="contact-quick-badges">
-            <a href="https://wa.me/919876543210?text=Hello%20Aakar%20Films,%20I%20would%20like%20to%20inquire%20about%20wedding%20photography."
-              target="_blank" rel="noopener" class="wa-direct-btn">
-              <i class="fa-brands fa-whatsapp"></i> Chat On WhatsApp Instantly
-            </a>
-            <div class="quick-contact-row">
-              <span><i class="fa-solid fa-phone"></i> +91 98765 43210</span>
+            <div class="contacts-dual-grid">
+              <!-- Contact 1: Shrey Doshi -->
+              <div class="contact-person-card">
+                <a href="tel:+917621987470" class="contact-person-phone">
+                  <i class="fa-solid fa-phone"></i> +91 76219 87470
+                </a>
+                <div class="contact-person-name">SHREY DOSHI</div>
+                <div class="contact-person-role">Director &bull; Cinematography</div>
+                <a href="https://wa.me/917621987470?text=Hello%20Shrey,%20I%20would%20like%20to%20inquire%20about%20Aakar%20Films%20wedding%20photography." target="_blank" rel="noopener" class="contact-wa-link">
+                  <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+                </a>
+              </div>
+
+              <!-- Contact 2: Chaitya Koradiya -->
+              <div class="contact-person-card">
+                <a href="tel:+916354896783" class="contact-person-phone">
+                  <i class="fa-solid fa-phone"></i> +91 63548 96783
+                </a>
+                <div class="contact-person-name">CHAITYA KORADIYA</div>
+                <div class="contact-person-role">Director &bull; Photography</div>
+                <a href="https://wa.me/916354896783?text=Hello%20Chaitya,%20I%20would%20like%20to%20inquire%20about%20Aakar%20Films%20wedding%20photography." target="_blank" rel="noopener" class="contact-wa-link">
+                  <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <div class="quick-contact-row" style="margin-top: 1rem;">
               <span><i class="fa-solid fa-envelope"></i> info@aakarfilms.com</span>
             </div>
           </div>
@@ -689,7 +697,9 @@
           <div class="footer-socials">
             <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><i
                 class="fa-brands fa-instagram"></i></a>
-            <a href="https://wa.me/919876543210" target="_blank" rel="noopener" aria-label="WhatsApp"><i
+            <a href="https://wa.me/917621987470" target="_blank" rel="noopener" aria-label="WhatsApp Shrey"><i
+                class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://wa.me/916354896783" target="_blank" rel="noopener" aria-label="WhatsApp Chaitya"><i
                 class="fa-brands fa-whatsapp"></i></a>
             <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube"><i
                 class="fa-brands fa-youtube"></i></a>
@@ -726,10 +736,10 @@
 
         <!-- Col 4: Contact & Inquiries -->
         <div class="footer-col contact-col">
-          <h4 class="f-col-title">STUDIO & BOOKINGS</h4>
-          <p class="f-info-item"><i class="fa-solid fa-location-dot"></i> Luxury Studio, Bandra West, Mumbai & Udaipur,
-            India</p>
-          <p class="f-info-item"><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+          <h4 class="f-col-title">STUDIO & DIRECTORS</h4>
+          <p class="f-info-item"><i class="fa-solid fa-location-dot"></i> Luxury Studio, Bandra West, Mumbai & Udaipur, India</p>
+          <p class="f-info-item"><i class="fa-solid fa-phone"></i> <a href="tel:+917621987470" style="color: inherit;">+91 76219 87470</a> (Shrey Doshi)</p>
+          <p class="f-info-item"><i class="fa-solid fa-phone"></i> <a href="tel:+916354896783" style="color: inherit;">+91 63548 96783</a> (Chaitya Koradiya)</p>
           <p class="f-info-item"><i class="fa-solid fa-envelope"></i> info@aakarfilms.com</p>
           <p class="f-info-item"><i class="fa-solid fa-clock"></i> Consultations: By Appointment Only</p>
           <a href="#booking" class="btn-gold-sm mt-3">RESERVE DATE</a>
@@ -753,7 +763,7 @@
 
   <!-- Floating WhatsApp & Top Button -->
   <div class="floating-controls">
-    <a href="https://wa.me/919876543210?text=Hello%20Aakar%20Films%20Team,%20I%20would%20like%20to%20inquire%20about%20dates."
+    <a href="https://wa.me/917621987470?text=Hello%20Aakar%20Films%20Team,%20I%20would%20like%20to%20inquire%20about%20dates."
       target="_blank" rel="noopener" class="float-wa" title="Instant WhatsApp Inquiry">
       <i class="fa-brands fa-whatsapp"></i>
     </a>

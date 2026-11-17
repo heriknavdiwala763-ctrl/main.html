@@ -581,95 +581,32 @@ document.addEventListener('DOMContentLoaded', () => {
   let userInteracting = false;
   let interactionTimer = null;
 
-  // Scroll Triggered Round Reveal for Scene 2 ("THE ART OF STORYTELLING")
-  const collectionsSection = document.getElementById('collections');
-  if (collectionsSection) {
-    const colObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          collectionsSection.classList.add('section-in-view');
-        } else {
-          collectionsSection.classList.remove('section-in-view');
-        }
-      });
-    }, { threshold: 0.15 });
-    colObserver.observe(collectionsSection);
-  }
+  // Dynamic observer threshold for mobile vs desktop
+  const isMobileScreen = window.innerWidth <= 768;
+  const observerThreshold = isMobileScreen ? 0.05 : 0.15;
+  const observerRootMargin = isMobileScreen ? "0px 0px -40px 0px" : "0px";
 
-  // Scroll Triggered Left-to-Right Entrance for Scene 4 ("STORIES THAT STAY FOREVER")
-  const storiesSection = document.getElementById('stories');
-  if (storiesSection) {
-    const storiesObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          storiesSection.classList.add('section-in-view');
-        } else {
-          storiesSection.classList.remove('section-in-view');
-        }
-      });
-    }, { threshold: 0.15 });
-    storiesObserver.observe(storiesSection);
-  }
-
-  // Scroll Triggered Round Reveal for Philosophy Section (Entire Section: Image + Writing)
-  const philSection = document.getElementById('philosophy');
-  if (philSection) {
+  const createSectionObserver = (element, className = 'section-in-view') => {
+    if (!element) return;
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          philSection.classList.add('section-in-view');
+          element.classList.add(className);
         } else {
-          philSection.classList.remove('section-in-view');
+          element.classList.remove(className);
         }
       });
-    }, { threshold: 0.15 });
-    observer.observe(philSection);
-  }
+    }, { threshold: observerThreshold, rootMargin: observerRootMargin });
+    observer.observe(element);
+  };
 
-  // Scroll Triggered Left-to-Right Entrance for Pre-Wedding Section ("TWO HEARTS. ONE BEAUTIFUL STORY.")
-  const preweddingSection = document.getElementById('prewedding');
-  if (preweddingSection) {
-    const prewedObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          preweddingSection.classList.add('section-in-view');
-        } else {
-          preweddingSection.classList.remove('section-in-view');
-        }
-      });
-    }, { threshold: 0.15 });
-    prewedObserver.observe(preweddingSection);
-  }
-
-  // Scroll Triggered Round Reveal for Services Section ("OUR BESPOKE SERVICES")
-  const servicesSection = document.getElementById('services');
-  if (servicesSection) {
-    const servicesObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          servicesSection.classList.add('section-in-view');
-        } else {
-          servicesSection.classList.remove('section-in-view');
-        }
-      });
-    }, { threshold: 0.15 });
-    servicesObserver.observe(servicesSection);
-  }
-
-  // Scroll Triggered Right-to-Left Entrance for Booking Section ("LET'S CREATE SOMETHING TIMELESS.")
-  const bookingSection = document.getElementById('booking');
-  if (bookingSection) {
-    const bookingObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          bookingSection.classList.add('section-in-view');
-        } else {
-          bookingSection.classList.remove('section-in-view');
-        }
-      });
-    }, { threshold: 0.15 });
-    bookingObserver.observe(bookingSection);
-  }
+  // Scroll Triggered Reveal Observers
+  createSectionObserver(document.getElementById('collections'));
+  createSectionObserver(document.getElementById('stories'));
+  createSectionObserver(document.getElementById('philosophy'));
+  createSectionObserver(document.getElementById('prewedding'));
+  createSectionObserver(document.getElementById('services'));
+  createSectionObserver(document.getElementById('booking'));
 
   function stepPageScroll() {
     if (pageAutoScrollActive && !userInteracting) {

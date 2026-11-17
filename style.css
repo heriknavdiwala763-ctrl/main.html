@@ -2334,36 +2334,38 @@ button {
   html, body {
     overflow-x: hidden !important;
     width: 100% !important;
+    position: relative;
   }
 
-  /* Safe margins for scroll reveal transforms on mobile */
-  .collections-scene .section-header,
+  /* Optimize transforms for mobile screens while keeping exact animations alive */
+  .collections-scene .section-header {
+    transform: translateX(60px);
+  }
   .collections-scene .horizontal-controls,
-  .collections-scene .collections-track-wrapper,
+  .collections-scene .collections-track-wrapper {
+    transform: translateX(80px);
+  }
+
   .stories-scene .section-header,
-  .stories-scene .portfolio-filter,
-  .stories-scene .portfolio-slider-container,
-  .prewedding-scene .section-header,
-  .prewedding-scene .asym-gallery,
-  .booking-intro,
+  .stories-scene .portfolio-filter {
+    transform: translateX(-60px);
+  }
+  .stories-scene .portfolio-slider-container {
+    transform: translateX(-80px);
+  }
+
+  .prewedding-scene .section-header {
+    transform: translateX(-60px);
+  }
+  .prewedding-scene .asym-gallery {
+    transform: translateX(-80px);
+  }
+
+  .booking-intro {
+    transform: translateX(60px);
+  }
   .booking-form-wrapper {
-    transform: none !important;
-    opacity: 1 !important;
-    transition: opacity 0.6s ease !important;
-  }
-
-  .philosophy-scene.section-in-view .phil-container,
-  .services-scene.section-in-view .section-header,
-  .services-scene.section-in-view .services-grid {
-    transform: none !important;
-    opacity: 1 !important;
-  }
-
-  .philosophy-scene .phil-container,
-  .services-scene .section-header,
-  .services-scene .services-grid {
-    transform: none !important;
-    opacity: 1 !important;
+    transform: translateX(80px);
   }
 
   /* Header & Navigation */
@@ -2969,5 +2971,32 @@ button {
   .story-card .col-img-box {
     width: 180px;
     height: 180px;
+  }
+}
+
+/* Accessibility: Respect prefers-reduced-motion without breaking base layouts */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .collections-scene.section-in-view .section-header,
+  .collections-scene.section-in-view .horizontal-controls,
+  .collections-scene.section-in-view .collections-track-wrapper,
+  .stories-scene.section-in-view .section-header,
+  .stories-scene.section-in-view .portfolio-filter,
+  .stories-scene.section-in-view .portfolio-slider-container,
+  .philosophy-scene.section-in-view .phil-container,
+  .prewedding-scene.section-in-view .section-header,
+  .prewedding-scene.section-in-view .asym-gallery,
+  .services-scene.section-in-view .section-header,
+  .services-scene.section-in-view .services-grid,
+  .booking-scene.section-in-view .booking-intro,
+  .booking-scene.section-in-view .booking-form-wrapper {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

@@ -30,6 +30,11 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+
     body {
       background: var(--bg-dark);
       background-image: 
@@ -63,6 +68,7 @@
       justify-content: center;
       padding: 1.5rem;
       transition: opacity 0.5s ease, visibility 0.5s ease;
+      overflow-y: auto;
     }
 
     #admin-login-screen.hidden {
@@ -76,6 +82,7 @@
       max-width: 440px;
       background: rgba(24, 9, 12, 0.88);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border);
       box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 40px rgba(212, 175, 55, 0.12);
       padding: 3.2rem 2.5rem;
@@ -176,6 +183,7 @@
       cursor: pointer;
       font-size: 0.9rem;
       transition: color 0.3s;
+      padding: 0.5rem;
     }
 
     .toggle-pwd:hover {
@@ -238,16 +246,6 @@
       color: var(--gold);
     }
 
-    .default-creds-hint {
-      margin-top: 1.2rem;
-      font-size: 0.68rem;
-      color: var(--gold-light);
-      text-align: center;
-      background: rgba(212, 175, 55, 0.08);
-      border: 1px dashed rgba(212, 175, 55, 0.3);
-      padding: 0.5rem;
-    }
-
     /* =========================================================
        2. ADMIN MAIN DASHBOARD
        ========================================================= */
@@ -255,6 +253,8 @@
       display: none;
       flex-direction: column;
       min-height: 100vh;
+      width: 100%;
+      position: relative;
     }
 
     #admin-dashboard-container.active {
@@ -264,21 +264,72 @@
     .admin-nav {
       background: rgba(18, 6, 9, 0.95);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 1.2rem 2.5rem;
+      padding: 1.1rem 2.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .admin-nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Hamburger Toggle for Mobile Admin Sidebar */
+    .admin-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      padding: 6px;
+      transition: all 0.3s;
+    }
+
+    .admin-hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--gold);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .admin-hamburger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .admin-hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .admin-hamburger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
     }
 
     .admin-logo {
       font-family: var(--font-serif);
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       letter-spacing: 4px;
       color: var(--gold);
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.8rem;
+    }
+
+    .admin-logo img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.4));
     }
 
     .admin-actions {
@@ -293,8 +344,12 @@
       color: var(--text);
       text-decoration: none;
       border: 1px solid var(--border);
-      padding: 0.5rem 1.2rem;
+      padding: 0.55rem 1.2rem;
       transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
     }
 
     .btn-view-site:hover {
@@ -306,14 +361,15 @@
       background: transparent;
       border: 1px solid rgba(231, 76, 60, 0.4);
       color: #ff6b6b;
-      padding: 0.5rem 1.2rem;
+      padding: 0.55rem 1.2rem;
       font-size: 0.72rem;
       letter-spacing: 2px;
       cursor: pointer;
       transition: all 0.3s;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 0.5rem;
+      white-space: nowrap;
     }
 
     .btn-logout:hover {
@@ -325,16 +381,63 @@
     .admin-layout {
       display: flex;
       flex-grow: 1;
+      position: relative;
+      width: 100%;
+    }
+
+    /* Mobile Sidebar Backdrop Overlay */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 800;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .sidebar-overlay.active {
+      display: block;
+      opacity: 1;
     }
 
     .admin-sidebar {
       width: 260px;
-      background: rgba(18, 6, 9, 0.85);
-      backdrop-filter: blur(10px);
+      flex-shrink: 0;
+      background: rgba(18, 6, 9, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-right: 1px solid var(--border);
       padding: 2rem 0;
       display: flex;
       flex-direction: column;
+      gap: 0.5rem;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 900;
+    }
+
+    .sidebar-user-card {
+      padding: 0 1.8rem 1.5rem;
+      margin-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .sidebar-user-role {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+
+    .sidebar-user-name {
+      font-size: 1.1rem;
+      font-family: var(--font-serif);
+      color: #fff;
+      display: flex;
+      align-items: center;
       gap: 0.5rem;
     }
 
@@ -353,6 +456,7 @@
       gap: 1rem;
       transition: all 0.3s;
       border-left: 3px solid transparent;
+      width: 100%;
     }
 
     .tab-btn:hover, .tab-btn.active {
@@ -363,20 +467,78 @@
 
     .admin-main {
       flex-grow: 1;
-      padding: 3rem;
+      padding: 2.5rem 3rem;
       overflow-y: auto;
+      width: 100%;
+      min-width: 0;
     }
 
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
+    /* Overview Stats Bar */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      padding: 1.5rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold);
+    }
+
+    .stat-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .stat-info .stat-num {
+      font-family: var(--font-serif);
+      font-size: 1.9rem;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-info .stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
     .panel-header {
       margin-bottom: 2rem;
       border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding-bottom: 1rem;
+      padding-bottom: 1.2rem;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      gap: 1.5rem;
+      flex-wrap: wrap;
     }
 
     .panel-header h2 {
@@ -384,14 +546,17 @@
       font-size: 2.2rem;
       letter-spacing: 2px;
       color: var(--gold-light);
+      line-height: 1.2;
     }
 
     .card-box {
       background: var(--bg-card);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--border);
       padding: 2rem;
       margin-bottom: 2.5rem;
+      width: 100%;
     }
 
     .card-box h3 {
@@ -418,44 +583,61 @@
       letter-spacing: 2px;
       color: var(--gold);
       margin-bottom: 0.5rem;
+      font-weight: 500;
     }
 
     .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
       background: rgba(12, 4, 6, 0.85);
       border: 1px solid rgba(212, 175, 55, 0.2);
       color: #fff;
-      padding: 0.8rem 1rem;
+      padding: 0.85rem 1rem;
       font-family: inherit;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       outline: none;
+      transition: border-color 0.3s;
     }
 
-    .form-group input:focus, .form-group select:focus {
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
       border-color: var(--gold);
+      background: rgba(18, 6, 9, 0.95);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
     .btn-gold {
       background: var(--gold);
       color: #000;
       border: none;
-      padding: 0.8rem 2rem;
+      padding: 0.85rem 2rem;
       font-size: 0.75rem;
       letter-spacing: 2px;
       font-weight: 600;
       text-transform: uppercase;
       cursor: pointer;
       transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
     }
 
     .btn-gold:hover {
       background: #fff;
     }
 
-    /* Table */
+    /* Table & Card Presentation for Bookings */
     .table-wrap {
       overflow-x: auto;
       border: 1px solid rgba(212, 175, 55, 0.2);
       background: var(--bg-card);
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
     }
 
     table {
@@ -463,6 +645,7 @@
       border-collapse: collapse;
       text-align: left;
       font-size: 0.85rem;
+      min-width: 600px;
     }
 
     th, td {
@@ -475,13 +658,14 @@
       color: var(--gold);
       letter-spacing: 1.5px;
       font-size: 0.7rem;
+      white-space: nowrap;
     }
 
     tr:hover td {
       background: rgba(212, 175, 55, 0.04);
     }
 
-    /* Photo Items Grid */
+    /* Photo Items Gallery Grid */
     .items-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -494,17 +678,29 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .item-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
     }
 
     .item-thumb {
       height: 200px;
       overflow: hidden;
+      position: relative;
     }
 
     .item-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .item-card:hover .item-thumb img {
+      transform: scale(1.05);
     }
 
     .item-body {
@@ -516,27 +712,32 @@
     }
 
     .item-title {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-family: var(--font-serif);
       margin-bottom: 0.3rem;
+      color: #fff;
     }
 
     .item-meta {
       font-size: 0.72rem;
       color: var(--gold);
       letter-spacing: 1px;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
     }
 
     .btn-del {
       background: transparent;
       border: 1px solid #e74c3c;
-      color: #e74c3c;
-      padding: 0.4rem 0.8rem;
-      font-size: 0.7rem;
+      color: #ff6b6b;
+      padding: 0.5rem 1rem;
+      font-size: 0.72rem;
+      letter-spacing: 1px;
       cursor: pointer;
       align-self: flex-start;
       transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .btn-del:hover {
@@ -545,19 +746,197 @@
     }
 
     .badge-live {
-      display: inline-block;
-      padding: 0.2rem 0.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.7rem;
       background: rgba(37, 211, 102, 0.15);
       border: 1px solid #25d366;
       color: #25d366;
       font-size: 0.65rem;
       letter-spacing: 1px;
+      white-space: nowrap;
     }
 
-    @media (max-width: 900px) {
-      .admin-layout { flex-direction: column; }
-      .admin-sidebar { width: 100%; flex-direction: row; overflow-x: auto; }
-      .form-grid { grid-template-columns: 1fr; }
+    /* =========================================================
+       3. RESPONSIVE MEDIA QUERIES (Mobile, Tablet, Desktop)
+       ========================================================= */
+    @media (max-width: 1024px) {
+      .admin-main {
+        padding: 2rem 1.8rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      /* Navigation Bar adjustments */
+      .admin-nav {
+        padding: 0.9rem 1.2rem;
+      }
+
+      .admin-hamburger {
+        display: flex;
+      }
+
+      .admin-logo {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+      }
+
+      .admin-logo img {
+        height: 30px;
+      }
+
+      .admin-actions .badge-live {
+        display: none;
+      }
+
+      .btn-view-site {
+        padding: 0.45rem 0.8rem;
+        font-size: 0.65rem;
+      }
+
+      .btn-logout {
+        padding: 0.45rem 0.8rem;
+        font-size: 0.65rem;
+      }
+
+      /* Slide-out Mobile Sidebar */
+      .admin-sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 82%;
+        max-width: 320px;
+        height: 100vh;
+        height: 100dvh;
+        box-shadow: 15px 0 35px rgba(0, 0, 0, 0.85);
+        padding-top: 5rem;
+        transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .admin-sidebar.open {
+        left: 0;
+      }
+
+      .admin-main {
+        padding: 1.5rem 1rem;
+      }
+
+      /* Overview stats in 2 columns on mobile */
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat-card {
+        padding: 1.2rem 1rem;
+        gap: 0.8rem;
+      }
+
+      .stat-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
+      }
+
+      .stat-info .stat-num {
+        font-size: 1.5rem;
+      }
+
+      .stat-info .stat-label {
+        font-size: 0.62rem;
+      }
+
+      .panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .panel-header h2 {
+        font-size: 1.7rem;
+      }
+
+      .card-box {
+        padding: 1.4rem 1rem;
+        margin-bottom: 1.8rem;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .btn-gold {
+        width: 100%;
+        padding: 0.85rem 1.2rem;
+      }
+
+      /* Gallery Items Grid on mobile: 2 Columns */
+      .items-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .item-thumb {
+        height: 140px;
+      }
+
+      .item-body {
+        padding: 0.9rem;
+      }
+
+      .item-title {
+        font-size: 1rem;
+      }
+
+      .item-meta {
+        font-size: 0.65rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .btn-del {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.65rem;
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* Login Screen Mobile Adjustments */
+      .login-box {
+        padding: 2.2rem 1.4rem;
+      }
+
+      .login-logo {
+        font-size: 1.8rem;
+        letter-spacing: 4px;
+      }
+    }
+
+    /* Extra Small Mobile Devices (<= 380px) */
+    @media (max-width: 380px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .items-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .item-thumb {
+        height: 180px;
+      }
+
+      .admin-logo span {
+        font-size: 0.95rem;
+        letter-spacing: 1px;
+      }
     }
   </style>
 </head>
@@ -600,7 +979,7 @@
         </button>
 
         <div class="login-footer-links">
-          <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Return to Main Website</a>
+          <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Return to Live Site</a>
           <span style="color: rgba(255,255,255,0.2);">&bull;</span>
           <a href="https://wa.me/919876543210" target="_blank">Need Access?</a>
         </div>
@@ -613,21 +992,36 @@
        ========================================== -->
   <div id="admin-dashboard-container">
     <header class="admin-nav">
-      <div class="admin-logo">
-        <img src="aakar_logo_gold.png" alt="Aakar Logo" style="height: 38px; width: auto; object-fit: contain;">
-        <span>AAKAR FILMS &bull; CMS</span>
+      <div class="admin-nav-left">
+        <button class="admin-hamburger" id="admin-hamburger-btn" aria-label="Toggle Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="admin-logo">
+          <img src="aakar_logo_gold.png" alt="Aakar Logo">
+          <span>AAKAR FILMS &bull; CMS</span>
+        </div>
       </div>
       <div class="admin-actions">
         <span class="badge-live"><i class="fa-solid fa-circle"></i> Authenticated Admin</span>
-        <a href="index.html" target="_blank" class="btn-view-site"><i class="fa-solid fa-arrow-up-right-from-square"></i> VIEW LIVE SITE</a>
+        <a href="index.html" target="_blank" class="btn-view-site"><i class="fa-solid fa-arrow-up-right-from-square"></i> LIVE SITE</a>
         <button id="admin-logout-btn" class="btn-logout"><i class="fa-solid fa-power-off"></i> LOGOUT</button>
       </div>
     </header>
 
     <div class="admin-layout">
+      <!-- Dark Overlay for Mobile Slideout Sidebar -->
+      <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
       <!-- Sidebar -->
-      <aside class="admin-sidebar">
-        <button class="tab-btn active" data-tab="tab-inquiries"><i class="fa-solid fa-envelope-open-text"></i> Inquiries</button>
+      <aside class="admin-sidebar" id="admin-sidebar">
+        <div class="sidebar-user-card">
+          <div class="sidebar-user-role"><i class="fa-solid fa-id-badge"></i> Active Operator</div>
+          <div class="sidebar-user-name" id="sidebar-user-display"><i class="fa-solid fa-circle-user"></i> Admin</div>
+        </div>
+        <button class="tab-btn active" data-tab="tab-overview"><i class="fa-solid fa-chart-pie"></i> Overview</button>
+        <button class="tab-btn" data-tab="tab-inquiries"><i class="fa-solid fa-envelope-open-text"></i> Bookings & Inquiries</button>
         <button class="tab-btn" data-tab="tab-stories"><i class="fa-solid fa-camera"></i> Wedding Stories</button>
         <button class="tab-btn" data-tab="tab-supabase"><i class="fa-solid fa-database"></i> Supabase Sync</button>
       </aside>
@@ -635,15 +1029,64 @@
       <!-- Main Content -->
       <main class="admin-main">
 
+        <!-- TAB 0: OVERVIEW -->
+        <section id="tab-overview" class="tab-panel active">
+          <div class="panel-header">
+            <div>
+              <h2>STUDIO OVERVIEW & ANALYTICS</h2>
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Real-time performance metrics and client commission telemetry.</p>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
+              <div class="stat-info">
+                <div class="stat-num" id="stat-total-inquiries">0</div>
+                <div class="stat-label">Total Inquiries</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-images"></i></div>
+              <div class="stat-info">
+                <div class="stat-num" id="stat-total-stories">9</div>
+                <div class="stat-label">Stories Published</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+              <div class="stat-info">
+                <div class="stat-num" id="stat-cloud-status">Sync</div>
+                <div class="stat-label">Cloud Database</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <div class="stat-info">
+                <div class="stat-num">2026</div>
+                <div class="stat-label">Commission Year</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-box">
+            <h3><i class="fa-solid fa-bolt" style="color: var(--gold); margin-right: 0.5rem;"></i> QUICK ACTIONS</h3>
+            <div class="form-actions">
+              <button class="btn-gold" onclick="switchTab('tab-stories')"><i class="fa-solid fa-plus"></i> Add New Wedding Story</button>
+              <button class="btn-gold" style="background: transparent; border: 1px solid var(--border); color: #fff;" onclick="switchTab('tab-inquiries')"><i class="fa-solid fa-list-check"></i> View Inquiries</button>
+            </div>
+          </div>
+        </section>
+
         <!-- TAB 1: INQUIRIES -->
-        <section id="tab-inquiries" class="tab-panel active">
+        <section id="tab-inquiries" class="tab-panel">
           <div class="panel-header">
             <div>
               <h2>CLIENT BOOKING INQUIRIES</h2>
               <p style="color: var(--text-muted); font-size: 0.85rem;">All reservations submitted through the front website form.</p>
             </div>
-            <button id="btn-export-csv" class="btn-gold" style="font-size: 0.68rem; padding: 0.5rem 1rem;">
-              <i class="fa-solid fa-download"></i> EXPORT INQUIRIES
+            <button id="btn-export-csv" class="btn-gold" style="font-size: 0.68rem; padding: 0.55rem 1.1rem;">
+              <i class="fa-solid fa-download"></i> EXPORT CSV
             </button>
           </div>
 
@@ -751,7 +1194,7 @@
 
   <script>
     // ==========================================
-    // AUTHENTICATION LOGIC (Session Storage)
+    // AUTHENTICATION LOGIC (Strict Authorized Accounts)
     // ==========================================
     const loginScreen = document.getElementById('admin-login-screen');
     const dashboardContainer = document.getElementById('admin-dashboard-container');
@@ -760,6 +1203,7 @@
     const logoutBtn = document.getElementById('admin-logout-btn');
     const togglePwd = document.getElementById('toggle-pwd-btn');
     const pwdInput = document.getElementById('admin-password');
+    const sidebarUserDisplay = document.getElementById('sidebar-user-display');
 
     // Toggle Password Visibility
     togglePwd?.addEventListener('click', () => {
@@ -772,9 +1216,14 @@
     // Check existing session
     function checkAuth() {
       const isAuth = sessionStorage.getItem('aakar_admin_auth');
+      const currentUser = sessionStorage.getItem('aakar_admin_user');
       if (isAuth === 'true') {
         loginScreen.classList.add('hidden');
         dashboardContainer.classList.add('active');
+        if (sidebarUserDisplay && currentUser) {
+          sidebarUserDisplay.innerHTML = `<i class="fa-solid fa-circle-user"></i> ${currentUser.toUpperCase()}`;
+        }
+        updateStats();
         renderInquiries();
         renderStories();
       } else {
@@ -802,10 +1251,13 @@
         sessionStorage.setItem('aakar_admin_user', normalizedUser);
         loginError.style.display = 'none';
         
-        // Success enter animation
         loginScreen.classList.add('hidden');
         setTimeout(() => {
           dashboardContainer.classList.add('active');
+          if (sidebarUserDisplay) {
+            sidebarUserDisplay.innerHTML = `<i class="fa-solid fa-circle-user"></i> ${normalizedUser.toUpperCase()}`;
+          }
+          updateStats();
           renderInquiries();
           renderStories();
         }, 300);
@@ -819,6 +1271,7 @@
     logoutBtn?.addEventListener('click', () => {
       if (confirm('Are you sure you want to log out from the Admin Portal?')) {
         sessionStorage.removeItem('aakar_admin_auth');
+        sessionStorage.removeItem('aakar_admin_user');
         dashboardContainer.classList.remove('active');
         loginScreen.classList.remove('hidden');
         loginForm.reset();
@@ -829,19 +1282,60 @@
     checkAuth();
 
     // ==========================================
+    // MOBILE SLIDEOUT SIDEBAR CONTROLS
+    // ==========================================
+    const hamburgerBtn = document.getElementById('admin-hamburger-btn');
+    const sidebar = document.getElementById('admin-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+    function toggleMobileSidebar(forceState) {
+      const isOpen = forceState !== undefined ? forceState : !sidebar.classList.contains('open');
+      sidebar.classList.toggle('open', isOpen);
+      hamburgerBtn.classList.toggle('active', isOpen);
+      sidebarOverlay.classList.toggle('active', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+
+    hamburgerBtn?.addEventListener('click', () => toggleMobileSidebar());
+    sidebarOverlay?.addEventListener('click', () => toggleMobileSidebar(false));
+
+    // ==========================================
     // TAB NAVIGATION
     // ==========================================
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabPanels = document.querySelectorAll('.tab-panel');
 
+    window.switchTab = function(tabId) {
+      tabBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-tab') === tabId));
+      tabPanels.forEach(p => p.classList.toggle('active', p.id === tabId));
+      if (window.innerWidth <= 768) {
+        toggleMobileSidebar(false);
+      }
+    };
+
     tabBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        tabBtns.forEach(b => b.classList.remove('active'));
-        tabPanels.forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
+        const tabId = btn.getAttribute('data-tab');
+        switchTab(tabId);
       });
     });
+
+    // ==========================================
+    // OVERVIEW STATS UPDATE
+    // ==========================================
+    function updateStats() {
+      const inquiries = JSON.parse(localStorage.getItem('aakar_inquiries') || '[]');
+      const stories = getStories();
+      const hasSb = localStorage.getItem('aakar_supabase_url') && localStorage.getItem('aakar_supabase_key');
+
+      const inquiriesEl = document.getElementById('stat-total-inquiries');
+      const storiesEl = document.getElementById('stat-total-stories');
+      const sbEl = document.getElementById('stat-cloud-status');
+
+      if (inquiriesEl) inquiriesEl.textContent = inquiries.length;
+      if (storiesEl) storiesEl.textContent = stories.length;
+      if (sbEl) sbEl.textContent = hasSb ? 'Active' : 'Offline';
+    }
 
     // ==========================================
     // INQUIRIES MANAGEMENT
@@ -869,6 +1363,8 @@
           </td>
         </tr>
       `).join('');
+
+      updateStats();
     }
 
     window.deleteInquiry = function(idx) {
@@ -924,7 +1420,7 @@
       const list = getStories();
       storiesGrid.innerHTML = list.map((story, idx) => `
         <div class="item-card">
-          <div class="item-thumb"><img src="${story.image}" alt="${story.title}"></div>
+          <div class="item-thumb"><img src="${story.image}" alt="${story.title}" loading="lazy"></div>
           <div class="item-body">
             <div>
               <h4 class="item-title">${story.title}</h4>
@@ -934,6 +1430,8 @@
           </div>
         </div>
       `).join('');
+
+      updateStats();
     }
 
     window.deleteStory = function(idx) {
@@ -979,6 +1477,7 @@
       localStorage.setItem('aakar_supabase_url', sbUrl.value.trim());
       localStorage.setItem('aakar_supabase_key', sbKey.value.trim());
       sbStatus.textContent = 'Settings saved successfully!';
+      updateStats();
       setTimeout(() => sbStatus.textContent = '', 3000);
     });
   </script>

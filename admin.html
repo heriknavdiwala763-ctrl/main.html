@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal & CMS | AAKAR FILMS</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --bg-dark: #120608;
+      --bg-surface: #1e0b0e;
+      --bg-card: rgba(35, 14, 18, 0.75);
+      --gold: #d4af37;
+      --gold-light: #f3df93;
+      --text: #f7f5f0;
+      --text-muted: #b8aba6;
+      --border: rgba(212, 175, 55, 0.28);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Montserrat', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background: var(--bg-dark);
+      background-image: 
+        linear-gradient(rgba(26, 10, 12, 0.92), rgba(15, 5, 7, 0.96)),
+        url('aakar_brand_bg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* =========================================================
+       1. PROFESSIONAL LUXURY LOGIN SCREEN
+       ========================================================= */
+    #admin-login-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #0f0507;
+      background-image: 
+        radial-gradient(circle at center, rgba(42, 16, 19, 0.7) 0%, rgba(10, 3, 5, 0.98) 100%),
+        url('aakar_brand_bg.jpg');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    #admin-login-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 440px;
+      background: rgba(24, 9, 12, 0.88);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 40px rgba(212, 175, 55, 0.12);
+      padding: 3.2rem 2.5rem;
+      position: relative;
+    }
+
+    .login-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 15%;
+      right: 15%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 2.4rem;
+    }
+
+    .login-badge {
+      font-size: 0.65rem;
+      letter-spacing: 5px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .login-logo {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      letter-spacing: 6px;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .login-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      margin-top: 0.4rem;
+    }
+
+    .login-form .form-group {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .login-form label {
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrap i.prefix-icon {
+      position: absolute;
+      left: 1rem;
+      color: var(--gold);
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .input-wrap input {
+      width: 100%;
+      background: rgba(12, 4, 6, 0.85);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      color: #fff;
+      padding: 0.9rem 1rem 0.9rem 2.7rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .input-wrap input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+      background: rgba(18, 6, 9, 0.95);
+    }
+
+    .toggle-pwd {
+      position: absolute;
+      right: 1rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .toggle-pwd:hover {
+      color: var(--gold);
+    }
+
+    .btn-login {
+      width: 100%;
+      background: var(--gold);
+      color: #000;
+      border: 1px solid var(--gold);
+      padding: 1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-top: 1.8rem;
+    }
+
+    .btn-login:hover {
+      background: transparent;
+      color: var(--gold);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+    }
+
+    .login-error {
+      background: rgba(231, 76, 60, 0.15);
+      border: 1px solid rgba(231, 76, 60, 0.4);
+      color: #ff6b6b;
+      padding: 0.8rem;
+      font-size: 0.78rem;
+      text-align: center;
+      margin-bottom: 1.2rem;
+      display: none;
+    }
+
+    .login-footer-links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.8rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.75rem;
+    }
+
+    .login-footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .login-footer-links a:hover {
+      color: var(--gold);
+    }
+
+    .default-creds-hint {
+      margin-top: 1.2rem;
+      font-size: 0.68rem;
+      color: var(--gold-light);
+      text-align: center;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px dashed rgba(212, 175, 55, 0.3);
+      padding: 0.5rem;
+    }
+
+    /* =========================================================
+       2. ADMIN MAIN DASHBOARD
+       ========================================================= */
+    #admin-dashboard-container {
+      display: none;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    #admin-dashboard-container.active {
+      display: flex;
+    }
+
+    .admin-nav {
+      background: rgba(18, 6, 9, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .admin-logo {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      letter-spacing: 4px;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .btn-view-site {
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 0.5rem 1.2rem;
+      transition: all 0.3s;
+    }
+
+    .btn-view-site:hover {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .btn-logout {
+      background: transparent;
+      border: 1px solid rgba(231, 76, 60, 0.4);
+      color: #ff6b6b;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-logout:hover {
+      background: #e74c3c;
+      color: #fff;
+    }
+
+    /* Layout */
+    .admin-layout {
+      display: flex;
+      flex-grow: 1;
+    }
+
+    .admin-sidebar {
+      width: 260px;
+      background: rgba(18, 6, 9, 0.85);
+      backdrop-filter: blur(10px);
+      border-right: 1px solid var(--border);
+      padding: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .tab-btn {
+      padding: 1rem 1.8rem;
+      text-align: left;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.3s;
+      border-left: 3px solid transparent;
+    }
+
+    .tab-btn:hover, .tab-btn.active {
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.08);
+      border-left-color: var(--gold);
+    }
+
+    .admin-main {
+      flex-grow: 1;
+      padding: 3rem;
+      overflow-y: auto;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .panel-header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .panel-header h2 {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      letter-spacing: 2px;
+      color: var(--gold-light);
+    }
+
+    .card-box {
+      background: var(--bg-card);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .card-box h3 {
+      font-size: 1.1rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 1.2rem;
+      color: var(--text);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      background: rgba(12, 4, 6, 0.85);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      color: #fff;
+      padding: 0.8rem 1rem;
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--gold);
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: #000;
+      border: none;
+      padding: 0.8rem 2rem;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-gold:hover {
+      background: #fff;
+    }
+
+    /* Table */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      background: var(--bg-card);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    th, td {
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    th {
+      background: rgba(12, 4, 6, 0.95);
+      color: var(--gold);
+      letter-spacing: 1.5px;
+      font-size: 0.7rem;
+    }
+
+    tr:hover td {
+      background: rgba(212, 175, 55, 0.04);
+    }
+
+    /* Photo Items Grid */
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .item-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .item-thumb {
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .item-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .item-body {
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .item-title {
+      font-size: 1.1rem;
+      font-family: var(--font-serif);
+      margin-bottom: 0.3rem;
+    }
+
+    .item-meta {
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    .btn-del {
+      background: transparent;
+      border: 1px solid #e74c3c;
+      color: #e74c3c;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.7rem;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: all 0.3s;
+    }
+
+    .btn-del:hover {
+      background: #e74c3c;
+      color: #fff;
+    }
+
+    .badge-live {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      background: rgba(37, 211, 102, 0.15);
+      border: 1px solid #25d366;
+      color: #25d366;
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 900px) {
+      .admin-layout { flex-direction: column; }
+      .admin-sidebar { width: 100%; flex-direction: row; overflow-x: auto; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       LOGIN OVERLAY SCREEN
+       ========================================== -->
+  <div id="admin-login-screen">
+    <div class="login-box">
+      <div class="login-header">
+        <span class="login-badge"><i class="fa-solid fa-shield-halved"></i> RESTRICTED ACCESS</span>
+        <h1 class="login-logo">AAKAR FILMS</h1>
+        <p class="login-sub">STUDIO ATELIER &bull; ADMIN PORTAL</p>
+      </div>
+
+      <div id="login-error-msg" class="login-error"></div>
+
+      <form id="admin-login-form" class="login-form">
+        <div class="form-group">
+          <label for="admin-username"><i class="fa-solid fa-user"></i> USERNAME</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-user-tie prefix-icon"></i>
+            <input type="text" id="admin-username" placeholder="Enter username" required autocomplete="username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="admin-password"><i class="fa-solid fa-lock"></i> PASSWORD</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-key prefix-icon"></i>
+            <input type="password" id="admin-password" placeholder="••••••••••••" required autocomplete="current-password">
+            <i class="fa-solid fa-eye toggle-pwd" id="toggle-pwd-btn" title="Show/Hide Password"></i>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-login" id="btn-login-submit">
+          <span>AUTHENTICATE & ENTER</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <div class="login-footer-links">
+          <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Return to Main Website</a>
+          <span style="color: rgba(255,255,255,0.2);">&bull;</span>
+          <a href="https://wa.me/919876543210" target="_blank">Need Access?</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       AUTHENTICATED ADMIN DASHBOARD
+       ========================================== -->
+  <div id="admin-dashboard-container">
+    <header class="admin-nav">
+      <div class="admin-logo">
+        <img src="aakar_logo_gold.png" alt="Aakar Logo" style="height: 38px; width: auto; object-fit: contain;">
+        <span>AAKAR FILMS &bull; CMS</span>
+      </div>
+      <div class="admin-actions">
+        <span class="badge-live"><i class="fa-solid fa-circle"></i> Authenticated Admin</span>
+        <a href="index.html" target="_blank" class="btn-view-site"><i class="fa-solid fa-arrow-up-right-from-square"></i> VIEW LIVE SITE</a>
+        <button id="admin-logout-btn" class="btn-logout"><i class="fa-solid fa-power-off"></i> LOGOUT</button>
+      </div>
+    </header>
+
+    <div class="admin-layout">
+      <!-- Sidebar -->
+      <aside class="admin-sidebar">
+        <button class="tab-btn active" data-tab="tab-inquiries"><i class="fa-solid fa-envelope-open-text"></i> Inquiries</button>
+        <button class="tab-btn" data-tab="tab-stories"><i class="fa-solid fa-camera"></i> Wedding Stories</button>
+        <button class="tab-btn" data-tab="tab-supabase"><i class="fa-solid fa-database"></i> Supabase Sync</button>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="admin-main">
+
+        <!-- TAB 1: INQUIRIES -->
+        <section id="tab-inquiries" class="tab-panel active">
+          <div class="panel-header">
+            <div>
+              <h2>CLIENT BOOKING INQUIRIES</h2>
+              <p style="color: var(--text-muted); font-size: 0.85rem;">All reservations submitted through the front website form.</p>
+            </div>
+            <button id="btn-export-csv" class="btn-gold" style="font-size: 0.68rem; padding: 0.5rem 1rem;">
+              <i class="fa-solid fa-download"></i> EXPORT INQUIRIES
+            </button>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>CLIENT NAME</th>
+                  <th>CONTACT / EMAIL</th>
+                  <th>EVENT TYPE</th>
+                  <th>DATE</th>
+                  <th>LOCATION</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody id="inquiries-tbody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- TAB 2: WEDDING STORIES GALLERY CMS -->
+        <section id="tab-stories" class="tab-panel">
+          <div class="panel-header">
+            <div>
+              <h2>MANAGE WEDDING STORIES & GALLERIES</h2>
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Add, preview, or remove photographs and category stories appearing on the public website.</p>
+            </div>
+          </div>
+
+          <div class="card-box">
+            <h3>+ ADD NEW WEDDING STORY CARD</h3>
+            <form id="add-story-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>COUPLE / STORY TITLE *</label>
+                  <input type="text" id="storyTitle" placeholder="e.g. Samar & Jahnavi" required>
+                </div>
+                <div class="form-group">
+                  <label>PORTFOLIO CATEGORY *</label>
+                  <select id="storyCategory" required>
+                    <option value="royal">Royal Weddings</option>
+                    <option value="destination">Destination Weddings</option>
+                    <option value="traditional">Traditional Weddings</option>
+                    <option value="modern">Modern Weddings</option>
+                    <option value="prewedding">Pre-Wedding Stories</option>
+                    <option value="engagement">Engagement Stories</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>LOCATION / VENUE *</label>
+                  <input type="text" id="storyLocation" placeholder="e.g. Umaid Bhawan Palace, Jodhpur" required>
+                </div>
+                <div class="form-group">
+                  <label>PHOTOGRAPH URL (HD) *</label>
+                  <input type="url" id="storyImageUrl" placeholder="https://images.unsplash.com/..." required>
+                </div>
+              </div>
+              <button type="submit" class="btn-gold"><i class="fa-solid fa-plus"></i> PUBLISH TO WEBSITE</button>
+            </form>
+          </div>
+
+          <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem; letter-spacing: 1px;">ACTIVE STORIES IN GALLERY</h3>
+          <div class="items-grid" id="admin-stories-grid">
+            <!-- Rendered dynamically -->
+          </div>
+        </section>
+
+        <!-- TAB 3: SUPABASE CONFIGURATION -->
+        <section id="tab-supabase" class="tab-panel">
+          <div class="panel-header">
+            <div>
+              <h2>SUPABASE INTEGRATION SETTINGS</h2>
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Connect your existing Supabase project credentials for real-time cloud sync.</p>
+            </div>
+          </div>
+
+          <div class="card-box" style="max-width: 700px;">
+            <h3>PROJECT CREDENTIALS</h3>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6;">
+              Keys entered here are securely stored in your browser's persistent storage and power both inquiry submissions and portfolio cloud fetch.
+            </p>
+
+            <form id="supabase-config-form">
+              <div class="form-group" style="margin-bottom: 1.2rem;">
+                <label>SUPABASE PROJECT URL</label>
+                <input type="text" id="sbUrl" placeholder="https://your-project.supabase.co">
+              </div>
+
+              <div class="form-group" style="margin-bottom: 1.8rem;">
+                <label>SUPABASE ANON PUBLIC KEY</label>
+                <input type="text" id="sbKey" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+              </div>
+
+              <button type="submit" class="btn-gold"><i class="fa-solid fa-save"></i> SAVE CREDENTIALS</button>
+              <span id="sb-status" style="margin-left: 1rem; font-size: 0.8rem; color: var(--gold);"></span>
+            </form>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // AUTHENTICATION LOGIC (Session Storage)
+    // ==========================================
+    const loginScreen = document.getElementById('admin-login-screen');
+    const dashboardContainer = document.getElementById('admin-dashboard-container');
+    const loginForm = document.getElementById('admin-login-form');
+    const loginError = document.getElementById('login-error-msg');
+    const logoutBtn = document.getElementById('admin-logout-btn');
+    const togglePwd = document.getElementById('toggle-pwd-btn');
+    const pwdInput = document.getElementById('admin-password');
+
+    // Toggle Password Visibility
+    togglePwd?.addEventListener('click', () => {
+      const type = pwdInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      pwdInput.setAttribute('type', type);
+      togglePwd.classList.toggle('fa-eye');
+      togglePwd.classList.toggle('fa-eye-slash');
+    });
+
+    // Check existing session
+    function checkAuth() {
+      const isAuth = sessionStorage.getItem('aakar_admin_auth');
+      if (isAuth === 'true') {
+        loginScreen.classList.add('hidden');
+        dashboardContainer.classList.add('active');
+        renderInquiries();
+        renderStories();
+      } else {
+        loginScreen.classList.remove('hidden');
+        dashboardContainer.classList.remove('active');
+      }
+    }
+
+    // Login Form Submission
+    loginForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const user = document.getElementById('admin-username').value.trim();
+      const pass = document.getElementById('admin-password').value;
+
+      // Strict Authorized User Credentials
+      const authorizedAccounts = {
+        'chaitya': 'Chaitya@123',
+        'shrey': 'Shrey@123'
+      };
+
+      const normalizedUser = user.toLowerCase();
+
+      if (authorizedAccounts[normalizedUser] && authorizedAccounts[normalizedUser] === pass) {
+        sessionStorage.setItem('aakar_admin_auth', 'true');
+        sessionStorage.setItem('aakar_admin_user', normalizedUser);
+        loginError.style.display = 'none';
+        
+        // Success enter animation
+        loginScreen.classList.add('hidden');
+        setTimeout(() => {
+          dashboardContainer.classList.add('active');
+          renderInquiries();
+          renderStories();
+        }, 300);
+      } else {
+        loginError.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Invalid username or password. Access Denied.';
+        loginError.style.display = 'block';
+      }
+    });
+
+    // Logout
+    logoutBtn?.addEventListener('click', () => {
+      if (confirm('Are you sure you want to log out from the Admin Portal?')) {
+        sessionStorage.removeItem('aakar_admin_auth');
+        dashboardContainer.classList.remove('active');
+        loginScreen.classList.remove('hidden');
+        loginForm.reset();
+      }
+    });
+
+    // Initial check
+    checkAuth();
+
+    // ==========================================
+    // TAB NAVIGATION
+    // ==========================================
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
+      });
+    });
+
+    // ==========================================
+    // INQUIRIES MANAGEMENT
+    // ==========================================
+    const tbody = document.getElementById('inquiries-tbody');
+
+    function renderInquiries() {
+      if (!tbody) return;
+      const inquiries = JSON.parse(localStorage.getItem('aakar_inquiries') || '[]');
+      if (inquiries.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #b8aba6; padding: 2.5rem;">No inquiries received yet. Submit an inquiry from the main website to test!</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = inquiries.map((item, idx) => `
+        <tr>
+          <td><strong>${item.full_name}</strong></td>
+          <td>${item.phone}<br><span style="color: #b8aba6; font-size: 0.75rem;">${item.email}</span></td>
+          <td><span style="color: var(--gold); font-weight: 500;">${item.event_type}</span></td>
+          <td>${item.event_date}</td>
+          <td>${item.event_location}</td>
+          <td>
+            <a href="https://wa.me/${item.phone.replace(/[^0-9]/g, '')}?text=Hello%20${encodeURIComponent(item.full_name)},%20this%20is%20Aakar%20Films%20regarding%20your%20wedding%20inquiry." target="_blank" style="color: #25d366; margin-right: 14px; font-size: 1.15rem;" title="Chat via WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <button onclick="deleteInquiry(${idx})" style="background: none; border: none; color: #ff6b6b; cursor: pointer; font-size: 1rem;" title="Delete Record"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    window.deleteInquiry = function(idx) {
+      if (confirm('Delete this inquiry?')) {
+        const inquiries = JSON.parse(localStorage.getItem('aakar_inquiries') || '[]');
+        inquiries.splice(idx, 1);
+        localStorage.setItem('aakar_inquiries', JSON.stringify(inquiries));
+        renderInquiries();
+      }
+    };
+
+    // Export CSV
+    document.getElementById('btn-export-csv')?.addEventListener('click', () => {
+      const inquiries = JSON.parse(localStorage.getItem('aakar_inquiries') || '[]');
+      if (!inquiries.length) return alert('No inquiries to export');
+      let csv = 'Name,Phone,Email,EventType,Date,Location,Message\n';
+      inquiries.forEach(i => {
+        csv += `"${i.full_name}","${i.phone}","${i.email}","${i.event_type}","${i.event_date}","${i.event_location}","${i.message || ''}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Aakar_Inquiries_${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+    });
+
+    // ==========================================
+    // STORIES CMS MANAGEMENT
+    // ==========================================
+    const storiesGrid = document.getElementById('admin-stories-grid');
+    const addStoryForm = document.getElementById('add-story-form');
+
+    const DEFAULT_STORIES = [
+      { id: 1, title: "Dev & Radhika", category: "royal", catLabel: "Royal Wedding", location: "City Palace, Udaipur", image: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=85" },
+      { id: 2, title: "Kabir & Ananya", category: "destination", catLabel: "Destination Wedding", location: "Villa Balbiano, Lake Como", image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85" },
+      { id: 3, title: "Siddharth & Kiara", category: "traditional", catLabel: "Traditional Wedding", location: "Suryagarh Palace, Jaisalmer", image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1200&q=85" },
+      { id: 4, title: "Aryan & Tanya", category: "modern", catLabel: "Modern Wedding", location: "Taj Lands End, Mumbai", image: "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1200&q=85" },
+      { id: 5, title: "Rohan & Meera", category: "prewedding", catLabel: "Pre-Wedding Story", location: "Royal Sand Dunes & Heritage Forts", image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=85" },
+      { id: 6, title: "Vikram & Sanjana", category: "engagement", catLabel: "Engagement Story", location: "The Oberoi Udaivilas", image: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1200&q=85" },
+      { id: 7, title: "Aditya & Natasha", category: "royal", catLabel: "Royal Wedding", location: "Umaid Bhawan Palace, Jodhpur", image: "https://images.unsplash.com/photo-1544077960-604201fe74bc?auto=format&fit=crop&w=1200&q=85" },
+      { id: 8, title: "Samar & Jahnavi", category: "destination", catLabel: "Destination Wedding", location: "Amalfi Coast, Italy", image: "https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1200&q=85" },
+      { id: 9, title: "Ranveer & Alizeh", category: "prewedding", catLabel: "Pre-Wedding Story", location: "Jaipur Amber Fort & Jal Mahal", image: "https://images.unsplash.com/photo-1583939411023-14783179e581?auto=format&fit=crop&w=1200&q=85" }
+    ];
+
+    function getStories() {
+      const saved = localStorage.getItem('aakar_custom_stories');
+      return saved ? JSON.parse(saved) : DEFAULT_STORIES;
+    }
+
+    function renderStories() {
+      if (!storiesGrid) return;
+      const list = getStories();
+      storiesGrid.innerHTML = list.map((story, idx) => `
+        <div class="item-card">
+          <div class="item-thumb"><img src="${story.image}" alt="${story.title}"></div>
+          <div class="item-body">
+            <div>
+              <h4 class="item-title">${story.title}</h4>
+              <p class="item-meta">${story.category.toUpperCase()} &bull; ${story.location}</p>
+            </div>
+            <button class="btn-del" onclick="deleteStory(${idx})"><i class="fa-solid fa-trash"></i> Remove from Website</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    window.deleteStory = function(idx) {
+      if (confirm('Delete this story?')) {
+        const list = getStories();
+        list.splice(idx, 1);
+        localStorage.setItem('aakar_custom_stories', JSON.stringify(list));
+        renderStories();
+      }
+    };
+
+    addStoryForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.getElementById('storyTitle').value.trim();
+      const category = document.getElementById('storyCategory').value;
+      const location = document.getElementById('storyLocation').value.trim();
+      const image = document.getElementById('storyImageUrl').value.trim();
+
+      const select = document.getElementById('storyCategory');
+      const catLabel = select.options[select.selectedIndex].text;
+
+      const list = getStories();
+      list.unshift({ id: Date.now(), title, category, catLabel, location, image });
+      localStorage.setItem('aakar_custom_stories', JSON.stringify(list));
+      addStoryForm.reset();
+      renderStories();
+      alert('New story published! It will appear immediately on the front website portfolio.');
+    });
+
+    // ==========================================
+    // SUPABASE CONFIGURATION
+    // ==========================================
+    const sbForm = document.getElementById('supabase-config-form');
+    const sbUrl = document.getElementById('sbUrl');
+    const sbKey = document.getElementById('sbKey');
+    const sbStatus = document.getElementById('sb-status');
+
+    if (sbUrl) sbUrl.value = localStorage.getItem('aakar_supabase_url') || '';
+    if (sbKey) sbKey.value = localStorage.getItem('aakar_supabase_key') || '';
+
+    sbForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      localStorage.setItem('aakar_supabase_url', sbUrl.value.trim());
+      localStorage.setItem('aakar_supabase_key', sbKey.value.trim());
+      sbStatus.textContent = 'Settings saved successfully!';
+      setTimeout(() => sbStatus.textContent = '', 3000);
+    });
+  </script>
+</body>
+</html>

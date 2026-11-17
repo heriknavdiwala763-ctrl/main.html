@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AAKAR FILMS | Luxury Wedding Photography & Cinematography</title>
+  <meta name="description"
+    content="AAKAR FILMS is an ultra-luxury wedding photography and cinematography studio capturing timeless royal weddings, pre-weddings, and intimate love stories globally.">
+
+  <!-- Google Fonts: Cormorant Garamond & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="luxury-theme">
+
+  <!-- Preloader Screen -->
+  <div id="preloader">
+    <div class="loader-content">
+      <div class="brand-sub-badge">EST. 2018</div>
+      <h1 class="loader-logo">AAKAR FILMS</h1>
+      <div class="loader-line"><span></span></div>
+      <p class="loader-tag">CAPTURING TIMELESS MOMENTS</p>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header id="main-header" class="navbar-transparent">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <img src="aakar_logo_gold.png" alt="Aakar Films Emblem" class="nav-brand-logo">
+        <span class="logo-title">AAKAR FILMS</span>
+      </a>
+
+      <nav class="nav-links" id="nav-menu">
+        <a href="#hero" class="nav-link active">HOME</a>
+        <a href="#collections" class="nav-link">COLLECTIONS</a>
+        <a href="#cinematic" class="nav-link">FILMS</a>
+        <a href="#stories" class="nav-link">WEDDINGS</a>
+        <a href="#philosophy" class="nav-link">OUR STORY</a>
+        <a href="#prewedding" class="nav-link">PRE-WEDDING</a>
+        <a href="#services" class="nav-link">SERVICES</a>
+        <a href="#booking" class="nav-link nav-cta">BOOK YOUR SHOOT</a>
+        <a href="admin.html" class="nav-link nav-admin"><i class="fa-solid fa-lock"></i> ADMIN</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#booking" class="btn-gold-sm">INQUIRE</a>
+        <button class="hamburger-btn" id="hamburger-toggle" aria-label="Toggle Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- SCENE 1: CINEMATIC HERO SECTION -->
+    <section id="hero" class="scene hero-scene">
+      <div class="hero-slider" id="hero-slider">
+        <!-- Slide 1 -->
+        <div class="hero-slide active" data-index="0">
+          <div class="slide-bg"
+            style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=85');">
+          </div>
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <span class="slide-badge">CINEMATIC LUXURY</span>
+            <h2 class="slide-title">EVERY LOVE STORY DESERVES TO BE REMEMBERED</h2>
+            <p class="slide-sub">Capturing timeless wedding moments with elegance and unmatched artistic depth.</p>
+            <div class="slide-btns">
+              <a href="#stories" class="btn-primary">EXPLORE OUR STORIES</a>
+              <a href="#cinematic" class="btn-secondary"><i class="fa-solid fa-play"></i> WATCH FILM</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="hero-slide" data-index="1">
+          <div class="slide-bg"
+            style="background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=2000&q=85');">
+          </div>
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <span class="slide-badge">PRE-WEDDING DREAMS</span>
+            <h2 class="slide-title">WHERE LOVE BECOMES ART</h2>
+            <p class="slide-sub">Beautifully captured pre-wedding memories against breathtaking international
+              landscapes.</p>
+            <div class="slide-btns">
+              <a href="#prewedding" class="btn-primary">VIEW PRE-WEDDING</a>
+              <a href="#booking" class="btn-secondary">BOOK CONSULTATION</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="hero-slide" data-index="2">
+          <div class="slide-bg"
+            style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=2000&q=85');">
+          </div>
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <span class="slide-badge">ROYAL CELEBRATIONS</span>
+            <h2 class="slide-title">MOMENTS THAT LAST FOREVER</h2>
+            <p class="slide-sub">Wedding photography and cinematic storytelling tailored for grand heritage occasions.
+            </p>
+            <div class="slide-btns">
+              <a href="#collections" class="btn-primary">OUR COLLECTIONS</a>
+              <a href="#stories" class="btn-secondary">ROYAL STORIES</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="hero-slide" data-index="3">
+          <div class="slide-bg"
+            style="background-image: url('https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=2000&q=85');">
+          </div>
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <span class="slide-badge">POETRY IN FRAMES</span>
+            <h2 class="slide-title">YOUR STORY. OUR FRAME.</h2>
+            <p class="slide-sub">Creating unforgettable emotional memories through our master lenses and directorial
+              vision.</p>
+            <div class="slide-btns">
+              <a href="#booking" class="btn-primary">RESERVE YOUR DATE</a>
+              <a href="#philosophy" class="btn-secondary">DISCOVER PHILOSOPHY</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Navigation Arrows -->
+      <button class="hero-nav prev-arrow" id="hero-prev" aria-label="Previous Slide">
+        <i class="fa-solid fa-angle-left"></i>
+      </button>
+      <button class="hero-nav next-arrow" id="hero-next" aria-label="Next Slide">
+        <i class="fa-solid fa-angle-right"></i>
+      </button>
+
+      <!-- Hero Pagination Minimalist Indicators -->
+      <div class="hero-pagination" id="hero-pagination">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+        <span class="dot" data-index="3"></span>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <a href="#collections" class="scroll-down-indicator">
+        <span class="scroll-text">SCROLL TO DISCOVER</span>
+        <div class="scroll-icon"></div>
+      </a>
+    </section>
+
+    <!-- SCENE 2: OUR COLLECTIONS (Horizontal Navigable Layout) -->
+    <section id="collections" class="scene collections-scene">
+      <div class="section-header">
+        <span class="section-tag">CURATED ARCHIVES</span>
+        <h2 class="section-heading">THE ART OF STORYTELLING</h2>
+        <div class="section-divider"></div>
+        <p class="section-sub">Immerse yourself into distinct disciplines perfected over hundreds of luxury
+          celebrations.</p>
+      </div>
+
+      <div class="horizontal-controls">
+        <span class="h-instruction"><i class="fa-solid fa-arrows-left-right"></i> DRAG OR USE CONTROLS TO EXPLORE</span>
+        <div class="h-btns">
+          <button class="ctrl-btn" id="col-prev" aria-label="Previous Collection"><i
+              class="fa-solid fa-arrow-left"></i></button>
+          <button class="ctrl-btn" id="col-next" aria-label="Next Collection"><i
+              class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <div class="collections-track-wrapper" id="collections-wrapper">
+        <div class="collections-track" id="collections-track">
+          <!-- Card 1 -->
+          <div class="collection-card">
+            <div class="col-img-box">
+              <img src="https://images.unsplash.com/photo-1544077960-604201fe74bc?auto=format&fit=crop&w=900&q=80"
+                alt="Wedding Photography" loading="lazy">
+            </div>
+            <div class="col-info">
+              <h3>Wedding Photography</h3>
+              <p>Timeless editorial captures that eternalize the grandeur, rituals, and delicate nuances of your union.
+              </p>
+              <a href="#stories" class="col-btn">EXPLORE COLLECTION <i class="fa-solid fa-arrow-right-long"></i></a>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="collection-card">
+            <div class="col-img-box">
+              <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=900&q=80"
+                alt="Pre-Wedding Photography" loading="lazy">
+            </div>
+            <div class="col-info">
+              <h3>Pre-Wedding Photography</h3>
+              <p>Romantic editorial narratives styled in exotic locales, blending pure chemistry with cinematic
+                lighting.</p>
+              <a href="#prewedding" class="col-btn">EXPLORE COLLECTION <i class="fa-solid fa-arrow-right-long"></i></a>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="collection-card">
+            <div class="col-img-box">
+              <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=900&q=80"
+                alt="Engagement Photography" loading="lazy">
+            </div>
+            <div class="col-info">
+              <h3>Engagement Photography</h3>
+              <p>The joyous beginning of forever captured with candid warmth, spontaneous laughter, and intimate
+                details.</p>
+              <a href="#stories" class="col-btn">EXPLORE COLLECTION <i class="fa-solid fa-arrow-right-long"></i></a>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="collection-card">
+            <div class="col-img-box">
+              <img src="https://images.unsplash.com/photo-1583939411023-14783179e581?auto=format&fit=crop&w=900&q=80"
+                alt="Couple Portraits" loading="lazy">
+            </div>
+            <div class="col-info">
+              <h3>Couple Portraits</h3>
+              <p>Regal, stylized portraits evoking Vogue covers, bathed in golden hour glow and fine art framing.</p>
+              <a href="#stories" class="col-btn">EXPLORE COLLECTION <i class="fa-solid fa-arrow-right-long"></i></a>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="collection-card">
+            <div class="col-img-box">
+              <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=900&q=80"
+                alt="Traditional Wedding Photography" loading="lazy">
+            </div>
+            <div class="col-info">
+              <h3>Traditional Wedding Photography</h3>
+              <p>Honoring heritage traditions with respectful precision, sacred fire moments, and familial emotion.</p>
+              <a href="#stories" class="col-btn">EXPLORE COLLECTION <i class="fa-solid fa-arrow-right-long"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 3: CINEMATIC STORYTELLING (Full-Width Video/Film Section) -->
+    <section id="cinematic" class="scene cinematic-scene">
+      <div class="cinematic-backdrop">
+        <video autoplay muted loop playsinline class="cinematic-video"
+          poster="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=80">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-bride-and-groom-holding-hands-43187-large.mp4"
+            type="video/mp4">
+        </video>
+        <div class="cinematic-overlay"></div>
+      </div>
+
+      <div class="cinematic-container">
+        <div class="cinematic-left">
+          <span class="cinematic-label">DIRECTOR'S CUT &bull; LUXURY FILMS</span>
+          <h2 class="cinematic-heading">EVERY FRAME TELLS A STORY</h2>
+          <p class="cinematic-desc">We do not just record ceremonies; we compose multi-layered emotional masterworks.
+            From bespoke soundscapes to calibrated color grades, every film embodies the grandeur of your union.</p>
+
+          <div class="film-metrics">
+            <div class="metric-item">
+              <span class="m-val">4K+</span>
+              <span class="m-lbl">Cinema Resolution</span>
+            </div>
+            <div class="metric-item">
+              <span class="m-val">250+</span>
+              <span class="m-lbl">Films Created</span>
+            </div>
+            <div class="metric-item">
+              <span class="m-val">12+</span>
+              <span class="m-lbl">Countries Captured</span>
+            </div>
+          </div>
+
+          <div class="cinematic-actions">
+            <button class="btn-primary" id="open-film-modal"><i class="fa-solid fa-play"></i> WATCH OUR FILMS</button>
+            <a href="#booking" class="btn-ghost">INQUIRE CINEMATOGRAPHY</a>
+          </div>
+        </div>
+
+        <div class="cinematic-right">
+          <div class="play-pulse-wrapper" id="play-pulse-trigger">
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring delay"></div>
+            <div class="play-circle">
+              <i class="fa-solid fa-play"></i>
+            </div>
+            <span class="play-caption">FEEL THE EMOTION</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 4: SIGNATURE WEDDING STORIES (Filterable Horizontal Slider & Lightbox) -->
+    <section id="stories" class="scene stories-scene">
+      <div class="section-header">
+        <span class="section-tag">SIGNATURE PORTFOLIO</span>
+        <h2 class="section-heading">STORIES THAT STAY FOREVER</h2>
+        <div class="section-divider"></div>
+        <p class="section-sub">A curated selection of celebrations capturing royalty, intimacy, and timeless vows.</p>
+      </div>
+
+      <!-- Categories Filter -->
+      <div class="portfolio-filter" id="portfolio-filter">
+        <button class="filter-btn active" data-cat="all">All Stories</button>
+        <button class="filter-btn" data-cat="royal">Royal Weddings</button>
+        <button class="filter-btn" data-cat="destination">Destination Weddings</button>
+        <button class="filter-btn" data-cat="traditional">Traditional Weddings</button>
+        <button class="filter-btn" data-cat="modern">Modern Weddings</button>
+        <button class="filter-btn" data-cat="prewedding">Pre-Wedding Stories</button>
+        <button class="filter-btn" data-cat="engagement">Engagement Stories</button>
+      </div>
+
+      <!-- Gallery Slider Container -->
+      <div class="portfolio-slider-container">
+        <button class="port-arrow port-prev" id="port-prev" aria-label="Previous Stories"><i
+            class="fa-solid fa-chevron-left"></i></button>
+        <button class="port-arrow port-next" id="port-next" aria-label="Next Stories"><i
+            class="fa-solid fa-chevron-right"></i></button>
+
+        <div class="portfolio-slider" id="portfolio-slider">
+          <!-- Dynamic cards loaded via JS / Supabase -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 5: OUR PHILOSOPHY (Editorial Luxury Split) -->
+    <section id="philosophy" class="scene philosophy-scene">
+      <div class="phil-container">
+        <div class="phil-image-col">
+          <div class="phil-img-wrap">
+            <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=85"
+              alt="Aakar Films Philosophy" class="phil-img" loading="lazy">
+            <div class="phil-frame"></div>
+            <div class="phil-experience-badge">
+              <span class="exp-num">10+</span>
+              <span class="exp-txt">YEARS OF<br>EXCELLENCE</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="phil-text-col">
+          <span class="section-tag">EDITORIAL VISION</span>
+          <h2 class="phil-heading">BEYOND PHOTOGRAPHY, WE CREATE MEMORIES.</h2>
+
+          <div class="phil-quote-box">
+            <p class="phil-quote">"We believe every love story is unique. Through our lens, we preserve emotions,
+              celebrate connections and transform beautiful moments into timeless memories."</p>
+            <span class="phil-author">— CREATIVE DIRECTOR, AAKAR FILMS</span>
+          </div>
+
+          <p class="phil-body">
+            At AAKAR FILMS, we treat every wedding as an artistic opus. Rather than staging rigid poses, we honor the
+            unscripted poetry: the tear glistening in a father's eye, the shared secret glance across a crowded banquet,
+            and the unbridled joy of sacred vows.
+          </p>
+
+          <div class="phil-pillars">
+            <div class="pillar">
+              <i class="fa-solid fa-gem"></i>
+              <h4>Ultra-Discreet</h4>
+              <p>Unobtrusive presence ensuring genuine, heartfelt candids.</p>
+            </div>
+            <div class="pillar">
+              <i class="fa-solid fa-palette"></i>
+              <h4>Bespoke Color Art</h4>
+              <p>Hand-crafted cinematic tones preserving rich warm golds and naturals.</p>
+            </div>
+          </div>
+
+          <div class="phil-actions">
+            <a href="#booking" class="btn-primary">DISCOVER OUR STORY</a>
+            <a href="#services" class="btn-ghost">OUR EXPERIENCES</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 6: PRE-WEDDING EXPERIENCE (Asymmetrical Gallery) -->
+    <section id="prewedding" class="scene prewedding-scene">
+      <div class="section-header">
+        <span class="section-tag">THE INTIMATE PROLOGUE</span>
+        <h2 class="section-heading">TWO HEARTS. ONE BEAUTIFUL STORY.</h2>
+        <div class="section-divider"></div>
+        <p class="section-sub">From royal heritage palaces in Udaipur and Jaipur to coastal serenity and dramatic dunes.
+        </p>
+      </div>
+
+      <div class="asym-gallery" id="prewedding-gallery">
+        <!-- 1: Royal Palace -->
+        <div class="asym-card tall" data-caption="Royal Palace Heritage Session &bull; Udaipur">
+          <img src="https://images.unsplash.com/photo-1583939411023-14783179e581?auto=format&fit=crop&w=1200&q=80"
+            alt="Royal Palace Photography" loading="lazy">
+          <div class="asym-overlay">
+            <span class="asym-location">UDAIPUR, RAJASTHAN</span>
+            <h3>Royal Palace Photography</h3>
+            <span class="asym-zoom"><i class="fa-solid fa-expand"></i> View Full Frame</span>
+          </div>
+        </div>
+
+        <!-- 2: Outdoor Scenic -->
+        <div class="asym-card wide" data-caption="Sun-Drenched Valley &bull; Himachal">
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80"
+            alt="Outdoor Scenic" loading="lazy">
+          <div class="asym-overlay">
+            <span class="asym-location">VALLEY RETREAT</span>
+            <h3>Romantic Outdoor Locations</h3>
+            <span class="asym-zoom"><i class="fa-solid fa-expand"></i> View Full Frame</span>
+          </div>
+        </div>
+
+        <!-- 3: Beach Romance -->
+        <div class="asym-card square" data-caption="Sunset Coastal Romance &bull; Goa Shores">
+          <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=900&q=80"
+            alt="Beach Photography" loading="lazy">
+          <div class="asym-overlay">
+            <span class="asym-location">COASTAL SERENITY</span>
+            <h3>Beach Photography</h3>
+            <span class="asym-zoom"><i class="fa-solid fa-expand"></i> View Full Frame</span>
+          </div>
+        </div>
+
+        <!-- 4: Nature Serenity -->
+        <div class="asym-card square" data-caption="Verdant Forest & Whispering Pines">
+          <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=900&q=80"
+            alt="Nature Photography" loading="lazy">
+          <div class="asym-overlay">
+            <span class="asym-location">WILDERNESS</span>
+            <h3>Nature Photography</h3>
+            <span class="asym-zoom"><i class="fa-solid fa-expand"></i> View Full Frame</span>
+          </div>
+        </div>
+
+        <!-- 5: Cinematic Couple Portrait -->
+        <div class="asym-card wide" data-caption="Cinematic Editorial Portrait &bull; Golden Hour Magic">
+          <img src="https://images.unsplash.com/photo-1544077960-604201fe74bc?auto=format&fit=crop&w=1200&q=80"
+            alt="Cinematic Couple Portraits" loading="lazy">
+          <div class="asym-overlay">
+            <span class="asym-location">SIGNATURE EDITORIAL</span>
+            <h3>Cinematic Couple Portraits</h3>
+            <span class="asym-zoom"><i class="fa-solid fa-expand"></i> View Full Frame</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 7: OUR SERVICES (Premium Service Cards) -->
+    <section id="services" class="scene services-scene">
+      <div class="section-header">
+        <span class="section-tag">TAILORED EXPERIENCES</span>
+        <h2 class="section-heading">OUR BESPOKE SERVICES</h2>
+        <div class="section-divider"></div>
+        <p class="section-sub">Comprehensive artistic production designed for the world's most discerning couples.</p>
+      </div>
+
+      <div class="services-grid">
+        <!-- 1 -->
+        <div class="service-card">
+          <div class="svc-img">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
+              alt="Wedding Photography" loading="lazy">
+          </div>
+          <div class="svc-body">
+            <h3>Wedding Photography</h3>
+            <p>Full ceremony, candid portraits, ritual detail capture, and bespoke heirloom documentation with
+              dual-photographer coverage.</p>
+            <a href="#booking" class="svc-inquire-btn" data-service="Wedding Photography">INQUIRE SERVICE <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="service-card">
+          <div class="svc-img">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80"
+              alt="Pre-Wedding Shoot" loading="lazy">
+          </div>
+          <div class="svc-body">
+            <h3>Pre-Wedding Shoot</h3>
+            <p>Conceptualized storytelling sessions with wardrobe guidance, exotic destination planning, and romantic
+              video teasers.</p>
+            <a href="#booking" class="svc-inquire-btn" data-service="Pre-Wedding Shoot">INQUIRE SERVICE <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="service-card">
+          <div class="svc-img">
+            <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80"
+              alt="Engagement Shoot" loading="lazy">
+          </div>
+          <div class="svc-body">
+            <h3>Engagement Shoot</h3>
+            <p>Intimate proposal coverage and celebratory rings ceremonies radiating genuine euphoria and spontaneous
+              charm.</p>
+            <a href="#booking" class="svc-inquire-btn" data-service="Engagement Shoot">INQUIRE SERVICE <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="service-card">
+          <div class="svc-img">
+            <img src="https://images.unsplash.com/photo-1583939411023-14783179e581?auto=format&fit=crop&w=800&q=80"
+              alt="Destination Wedding" loading="lazy">
+          </div>
+          <div class="svc-body">
+            <h3>Destination Wedding</h3>
+            <p>Worldwide crew deployment to Udaipur, Lake Como, Bali, Dubai, or Rajasthan with complete logistics and
+              round-the-clock availability.</p>
+            <a href="#booking" class="svc-inquire-btn" data-service="Destination Wedding">INQUIRE SERVICE <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="service-card">
+          <div class="svc-img">
+            <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80"
+              alt="Albums & Photo Editing" loading="lazy">
+          </div>
+          <div class="svc-body">
+            <h3>Albums & Fine Art Print</h3>
+            <p>Handcrafted Italian leather flush-mount albums, archival museum-grade fine art papers, and signature
+              color toning.</p>
+            <a href="#booking" class="svc-inquire-btn" data-service="Albums & Photo Editing">INQUIRE SERVICE <i
+                class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 8: PREMIUM BOOKING CTA & FORM -->
+    <section id="booking" class="scene booking-scene">
+      <div class="booking-bg-overlay"></div>
+      <div class="booking-container">
+
+        <div class="booking-intro">
+          <span class="section-tag gold">RESERVATIONS & COMMISSIONS</span>
+          <h2 class="booking-heading">LET'S CREATE SOMETHING TIMELESS.</h2>
+          <p class="booking-sub">Your beautiful journey deserves to be captured forever. We accept a limited number of
+            commissions per calendar year to preserve unmatched editorial attention.</p>
+
+          <div class="contact-quick-badges">
+            <a href="https://wa.me/919876543210?text=Hello%20Aakar%20Films,%20I%20would%20like%20to%20inquire%20about%20wedding%20photography."
+              target="_blank" rel="noopener" class="wa-direct-btn">
+              <i class="fa-brands fa-whatsapp"></i> Chat On WhatsApp Instantly
+            </a>
+            <div class="quick-contact-row">
+              <span><i class="fa-solid fa-phone"></i> +91 98765 43210</span>
+              <span><i class="fa-solid fa-envelope"></i> info@aakarfilms.com</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Professional Booking Form -->
+        <div class="booking-form-wrapper">
+          <div class="form-header">
+            <h3>BOOK YOUR CONSULTATION</h3>
+            <p>Fill out the details below and our lead director will connect within 24 hours.</p>
+          </div>
+
+          <form id="booking-form" class="luxury-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fullName">FULL NAME *</label>
+                <input type="text" id="fullName" name="fullName" placeholder="e.g. Priyesh & Aakanksha" required>
+              </div>
+              <div class="form-group">
+                <label for="phoneNumber">PHONE NUMBER *</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+91 98765 43210" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">EMAIL ADDRESS *</label>
+                <input type="email" id="email" name="email" placeholder="yourname@gmail.com" required>
+              </div>
+              <div class="form-group">
+                <label for="eventType">EVENT TYPE *</label>
+                <select id="eventType" name="eventType" required>
+                  <option value="" disabled selected>Select Celebration</option>
+                  <option value="Wedding + Cinematography">Full Wedding + Cinematography</option>
+                  <option value="Pre-Wedding Shoot">Pre-Wedding Shoot</option>
+                  <option value="Destination Wedding">Destination Wedding</option>
+                  <option value="Engagement Ceremony">Engagement Ceremony</option>
+                  <option value="Traditional Wedding">Traditional Wedding</option>
+                  <option value="Luxury Events">Luxury Private Event</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="eventDate">EVENT DATE *</label>
+                <input type="date" id="eventDate" name="eventDate" required>
+              </div>
+              <div class="form-group">
+                <label for="eventLocation">EVENT LOCATION *</label>
+                <input type="text" id="eventLocation" name="eventLocation"
+                  placeholder="e.g. Udaipur, Mumbai, Goa, Abroad" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="message">TELL US ABOUT YOUR VISION</label>
+              <textarea id="message" name="message" rows="4"
+                placeholder="Share your plans, venues, estimated guest count, or special traditions..."></textarea>
+            </div>
+
+            <div class="form-footer">
+              <button type="submit" class="btn-primary-block" id="booking-submit-btn">
+                <span>SUBMIT INQUIRY</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+
+            <div id="booking-alert" class="booking-alert" style="display: none;"></div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- LIGHTBOX MODAL -->
+  <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-hidden="true">
+    <div class="lightbox-backdrop"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close Lightbox">&times;</button>
+      <button class="lightbox-nav lb-prev" id="lb-prev" aria-label="Previous Image"><i
+          class="fa-solid fa-angle-left"></i></button>
+      <button class="lightbox-nav lb-next" id="lb-next" aria-label="Next Image"><i
+          class="fa-solid fa-angle-right"></i></button>
+      <div class="lightbox-figure">
+        <img id="lightbox-img" src="" alt="Full View">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO MODAL -->
+  <div id="video-modal" class="video-modal" role="dialog" aria-hidden="true">
+    <div class="video-backdrop"></div>
+    <div class="video-modal-content">
+      <button class="video-close" id="video-close" aria-label="Close Video">&times;</button>
+      <div class="video-frame-wrap">
+        <iframe id="video-iframe" src="" title="Aakar Films Cinema Showcase"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="luxury-footer">
+    <div class="footer-top">
+      <div class="footer-container">
+        <!-- Col 1: Brand -->
+        <div class="footer-col brand-col">
+          <h2 class="footer-logo">AAKAR FILMS</h2>
+          <p class="brand-desc">
+            A celebrated luxury photography and cinematography atelier preserving sacred bonds, royal heritage, and
+            romantic epics worldwide.
+          </p>
+          <div class="footer-socials">
+            <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><i
+                class="fa-brands fa-instagram"></i></a>
+            <a href="https://wa.me/919876543210" target="_blank" rel="noopener" aria-label="WhatsApp"><i
+                class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube"><i
+                class="fa-brands fa-youtube"></i></a>
+            <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook"><i
+                class="fa-brands fa-facebook-f"></i></a>
+          </div>
+        </div>
+
+        <!-- Col 2: Navigation -->
+        <div class="footer-col links-col">
+          <h4 class="f-col-title">NAVIGATION</h4>
+          <ul class="f-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#collections">Collections</a></li>
+            <li><a href="#stories">Wedding Stories</a></li>
+            <li><a href="#prewedding">Pre-Wedding</a></li>
+            <li><a href="#services">Our Services</a></li>
+            <li><a href="#philosophy">About Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Experiences -->
+        <div class="footer-col links-col">
+          <h4 class="f-col-title">EXPERIENCES</h4>
+          <ul class="f-links">
+            <li><a href="#stories">Royal Heritage Weddings</a></li>
+            <li><a href="#stories">Destination Weddings</a></li>
+            <li><a href="#cinematic">Cinematic Films</a></li>
+            <li><a href="#prewedding">Exotic Pre-Weddings</a></li>
+            <li><a href="#services">Fine Art Albums</a></li>
+            <li><a href="admin.html">Staff & Admin Portal</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact & Inquiries -->
+        <div class="footer-col contact-col">
+          <h4 class="f-col-title">STUDIO & BOOKINGS</h4>
+          <p class="f-info-item"><i class="fa-solid fa-location-dot"></i> Luxury Studio, Bandra West, Mumbai & Udaipur,
+            India</p>
+          <p class="f-info-item"><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+          <p class="f-info-item"><i class="fa-solid fa-envelope"></i> info@aakarfilms.com</p>
+          <p class="f-info-item"><i class="fa-solid fa-clock"></i> Consultations: By Appointment Only</p>
+          <a href="#booking" class="btn-gold-sm mt-3">RESERVE DATE</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-container">
+        <p class="copyright">&copy; 2026 AAKAR FILMS. All Rights Reserved. Crafted for Timeless Elegance.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <span>&bull;</span>
+          <a href="#">Terms of Service</a>
+          <span>&bull;</span>
+          <a href="admin.html">Admin Login</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp & Top Button -->
+  <div class="floating-controls">
+    <a href="https://wa.me/919876543210?text=Hello%20Aakar%20Films%20Team,%20I%20would%20like%20to%20inquire%20about%20dates."
+      target="_blank" rel="noopener" class="float-wa" title="Instant WhatsApp Inquiry">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+    <button id="back-to-top" class="back-to-top" aria-label="Back to Top">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+  </div>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+
+</html>

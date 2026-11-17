@@ -1,0 +1,2306 @@
+/* ==========================================================================
+   AAKAR FILMS - LUXURY PHOTOGRAPHY & CINEMATOGRAPHY
+   Palette: Rich Black, Champagne Gold, Ivory & Warm Beige
+   Typography: Cormorant Garamond (Display) & Montserrat (Body/Modern)
+   ========================================================================== */
+
+:root {
+  --bg-dark: #0a0a0a;
+  --bg-card: #121212;
+  --bg-card-hover: #181818;
+  --bg-overlay: rgba(10, 10, 10, 0.72);
+  --bg-overlay-heavy: rgba(8, 8, 8, 0.88);
+
+  /* Aakar Royal Crimson Branding */
+  --bg-aakar-crimson: #2A1013;
+  --bg-aakar-crimson-deep: #1A0A0C;
+  --bg-aakar-card: rgba(30, 12, 14, 0.85);
+  --bg-aakar-card-hover: rgba(45, 18, 22, 0.95);
+  
+  --gold-primary: #d4af37;
+  --gold-champagne: #e6ca65;
+  --gold-muted: #9e8530;
+  --gold-glow: rgba(212, 175, 55, 0.25);
+  
+  --text-ivory: #f7f5f0;
+  --text-beige: #e5dfd3;
+  --text-muted: #999388;
+  --border-gold: rgba(212, 175, 55, 0.28);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.25s ease;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background-color: var(--bg-dark);
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-ivory);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+/* ==========================================================================
+   PRELOADER
+   ========================================================================== */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background-color: #070707;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-content {
+  text-align: center;
+  letter-spacing: 4px;
+}
+
+.brand-sub-badge {
+  font-size: 0.75rem;
+  color: var(--gold-primary);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  letter-spacing: 6px;
+}
+
+.loader-logo {
+  font-family: var(--font-serif);
+  font-size: 2.8rem;
+  letter-spacing: 8px;
+  color: var(--text-ivory);
+  font-weight: 400;
+  margin-bottom: 1.2rem;
+}
+
+.loader-line {
+  width: 140px;
+  height: 1px;
+  background: rgba(212, 175, 55, 0.2);
+  margin: 0 auto 1.2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.loader-line span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--gold-primary);
+  animation: loadProgress 1.4s ease-in-out infinite;
+}
+
+.loader-tag {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 4px;
+}
+
+@keyframes loadProgress {
+  0% { left: 0; width: 0; }
+  50% { left: 25%; width: 50%; }
+  100% { left: 100%; width: 0; }
+}
+
+/* ==========================================================================
+   BUTTONS & TYPOGRAPHY SHARED
+   ========================================================================== */
+.section-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 3.5rem;
+  padding: 0 1.5rem;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 5px;
+  color: var(--gold-primary);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.section-tag.gold {
+  color: var(--gold-champagne);
+}
+
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: var(--text-ivory);
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.section-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--gold-primary);
+  margin: 1.2rem auto;
+}
+
+.section-sub {
+  color: var(--text-beige);
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  line-height: 1.8;
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.9rem 2.2rem;
+  background-color: var(--gold-primary);
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: 1px solid var(--gold-primary);
+  transition: var(--transition-smooth);
+}
+
+.btn-primary:hover {
+  background-color: transparent;
+  color: var(--gold-champagne);
+  box-shadow: 0 0 20px var(--gold-glow);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.9rem 2.2rem;
+  background-color: transparent;
+  color: var(--text-ivory);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
+  transition: var(--transition-smooth);
+}
+
+.btn-secondary:hover {
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+  background: rgba(0,0,0,0.5);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  background-color: transparent;
+  color: var(--text-ivory);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 1px solid var(--border-gold);
+  transition: var(--transition-smooth);
+}
+
+.btn-ghost:hover {
+  background: var(--gold-primary);
+  color: #000;
+}
+
+.btn-gold-sm {
+  display: inline-block;
+  padding: 0.55rem 1.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  font-weight: 600;
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-primary);
+  text-transform: uppercase;
+  transition: var(--transition-smooth);
+}
+
+.btn-gold-sm:hover {
+  background-color: var(--gold-primary);
+  color: #000;
+}
+
+/* ==========================================================================
+   NAVIGATION BAR
+   ========================================================================== */
+#main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: background-color 0.4s ease, padding 0.4s ease, border-bottom 0.4s ease, box-shadow 0.4s ease;
+  padding: 1.6rem 0;
+}
+
+#main-header.navbar-transparent {
+  background-color: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.2rem 0;
+}
+
+#main-header.navbar-scrolled {
+  background-color: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+}
+
+.nav-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.nav-brand-logo {
+  height: 72px; /* Prominent & Clearly Visible */
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 14px rgba(212, 175, 55, 0.55)) drop-shadow(0 2px 5px rgba(0,0,0,0.8));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-logo:hover .nav-brand-logo {
+  transform: scale(1.08);
+}
+
+.logo-title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 5px;
+  color: var(--text-ivory);
+  line-height: 1;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  font-size: 0.72rem;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: var(--text-beige);
+  position: relative;
+  padding: 0.4rem 0;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: var(--gold-primary);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--gold-primary);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-cta {
+  color: var(--gold-champagne);
+  font-weight: 600;
+}
+
+.nav-admin {
+  color: #888;
+  font-size: 0.68rem;
+}
+.nav-admin:hover {
+  color: #fff;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px;
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-ivory);
+  transition: var(--transition-fast);
+}
+
+/* ==========================================================================
+   SCENE 1: CINEMATIC HERO SLIDER
+   ========================================================================== */
+.hero-scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 650px;
+  overflow: hidden;
+}
+
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.slide-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.08);
+  transition: transform 7s ease-out;
+}
+
+.hero-slide.active .slide-bg {
+  transform: scale(1);
+}
+
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.85) 100%);
+}
+
+.slide-content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  max-width: 950px;
+  padding: 0 2rem;
+}
+
+.slide-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 6px;
+  color: var(--gold-champagne);
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease 0.2s;
+}
+
+.slide-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 5.5vw, 4.8rem);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-ivory);
+  margin-bottom: 1.4rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.9s ease 0.4s;
+}
+
+.slide-sub {
+  font-size: clamp(0.9rem, 1.4vw, 1.15rem);
+  color: var(--text-beige);
+  max-width: 680px;
+  margin: 0 auto 2.4rem;
+  letter-spacing: 1px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.9s ease 0.6s;
+}
+
+.slide-btns {
+  display: flex;
+  gap: 1.4rem;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.9s ease 0.8s;
+}
+
+.hero-slide.active .slide-badge,
+.hero-slide.active .slide-title,
+.hero-slide.active .slide-sub,
+.hero-slide.active .slide-btns {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero Controls */
+.hero-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.45);
+  border: 1px solid var(--border-gold);
+  color: var(--text-ivory);
+  font-size: 1.1rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.hero-nav:hover {
+  background: var(--gold-primary);
+  color: #000;
+}
+
+.prev-arrow { left: 2.5rem; }
+.next-arrow { right: 2.5rem; }
+
+.hero-pagination {
+  position: absolute;
+  bottom: 3.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  z-index: 10;
+}
+
+.hero-pagination .dot {
+  width: 28px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition-fast);
+}
+
+.hero-pagination .dot.active {
+  background: var(--gold-primary);
+  width: 45px;
+}
+
+.scroll-down-indicator {
+  position: absolute;
+  bottom: 2rem;
+  right: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  z-index: 10;
+  color: var(--text-muted);
+}
+
+.scroll-text {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.scroll-icon {
+  width: 18px;
+  height: 30px;
+  border: 1px solid var(--border-gold);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-icon::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 6px;
+  background: var(--gold-primary);
+  border-radius: 2px;
+  animation: scrollBob 1.8s infinite;
+}
+
+@keyframes scrollBob {
+  0% { top: 6px; opacity: 1; }
+  100% { top: 18px; opacity: 0; }
+}
+
+/* ==========================================================================
+   SCENE 2: OUR COLLECTIONS (Horizontal Smooth Flow)
+   ========================================================================== */
+.collections-scene {
+  padding: 8rem 0;
+  background-color: var(--bg-aakar-crimson);
+  background-image: 
+    linear-gradient(rgba(42, 16, 19, 0.88), rgba(26, 10, 12, 0.94)),
+    url('aakar_brand_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: center top;
+  background-size: cover;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Scene 2: The Art of Storytelling Right-to-Left Slide-In Reveal Animation */
+.collections-scene .section-header {
+  opacity: 0;
+  transform: translateX(120px);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease;
+}
+
+.collections-scene .horizontal-controls,
+.collections-scene .collections-track-wrapper {
+  opacity: 0;
+  transform: translateX(150px);
+  transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, opacity 1.1s ease 0.15s;
+}
+
+/* Activated state when user scrolls onto Scene 2 Collections - Right to Left entrance */
+.collections-scene.section-in-view .section-header {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.collections-scene.section-in-view .horizontal-controls,
+.collections-scene.section-in-view .collections-track-wrapper {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.collections-scene::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 30%, rgba(20, 8, 10, 0.7) 100%);
+  pointer-events: none;
+}
+
+.horizontal-controls {
+  max-width: 1440px;
+  margin: 0 auto 1.8rem;
+  padding: 0 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.h-instruction {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: var(--gold-muted);
+}
+
+.h-btns {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.ctrl-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border-gold);
+  color: var(--text-ivory);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: var(--transition-fast);
+}
+
+.ctrl-btn:hover {
+  background: var(--gold-primary);
+  color: #000;
+}
+
+.collections-track-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 1.5rem 2.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-muted) transparent;
+}
+
+.collections-track-wrapper::-webkit-scrollbar {
+  height: 3px;
+}
+.collections-track-wrapper::-webkit-scrollbar-thumb {
+  background: var(--gold-primary);
+}
+
+.collections-track {
+  display: flex;
+  gap: 2.8rem;
+  width: max-content;
+  align-items: center;
+  padding: 1.5rem 0.5rem;
+}
+
+.collection-card {
+  width: 320px;
+  background: var(--bg-aakar-card);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 200px 200px 30px 30px; /* Elegant Luxury Round Arch Silhouette */
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.8rem 1.4rem 2rem;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+.collection-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  background: var(--bg-aakar-card-hover);
+  border-color: var(--gold-primary);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 25px rgba(212, 175, 55, 0.2);
+}
+
+.col-img-box {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%; /* Perfect Round Shape */
+  overflow: hidden;
+  border: 2px solid var(--gold-primary);
+  padding: 5px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  flex-shrink: 0;
+}
+
+.col-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.collection-card:hover .col-img-box img {
+  transform: scale(1.12);
+}
+
+.col-num {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--gold-champagne);
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid var(--border-gold);
+  padding: 0.2rem 0.6rem;
+  letter-spacing: 2px;
+}
+
+.col-info {
+  padding: 1.6rem 0.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.col-info h3 {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  color: var(--text-ivory);
+  letter-spacing: 1px;
+  margin-bottom: 0.6rem;
+  font-weight: 400;
+}
+
+.col-info p {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  margin-bottom: 1.4rem;
+  max-width: 260px;
+}
+
+.col-btn {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: var(--gold-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.col-btn:hover {
+  color: var(--text-ivory);
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   SCENE 3: CINEMATIC STORYTELLING (Full-Width Film Section)
+   ========================================================================== */
+.cinematic-scene {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 7rem 0;
+}
+
+.cinematic-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.cinematic-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cinematic-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.75) 50%, rgba(8,8,8,0.5) 100%);
+}
+
+.cinematic-container {
+  position: relative;
+  z-index: 5;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: 4rem;
+}
+
+.cinematic-left {
+  max-width: 680px;
+}
+
+.cinematic-label {
+  font-size: 0.72rem;
+  letter-spacing: 5px;
+  color: var(--gold-champagne);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.cinematic-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 4.5vw, 4rem);
+  letter-spacing: 2px;
+  line-height: 1.2;
+  color: var(--text-ivory);
+  margin-bottom: 1.4rem;
+  text-transform: uppercase;
+}
+
+.cinematic-desc {
+  font-size: 1rem;
+  color: var(--text-beige);
+  line-height: 1.8;
+  margin-bottom: 2.2rem;
+}
+
+.film-metrics {
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 1.2rem 0;
+}
+
+.metric-item .m-val {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  color: var(--gold-primary);
+}
+
+.metric-item .m-lbl {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.cinematic-actions {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.cinematic-right {
+  display: flex;
+  justify-content: center;
+}
+
+.play-pulse-wrapper {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.play-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  padding-left: 4px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
+  z-index: 2;
+}
+
+.play-pulse-wrapper:hover .play-circle {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px var(--gold-primary);
+}
+
+.pulse-ring {
+  position: absolute;
+  inset: 15px;
+  border: 1px solid var(--gold-primary);
+  border-radius: 50%;
+  animation: pulseRipple 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+.pulse-ring.delay {
+  animation-delay: 1.2s;
+}
+
+.play-caption {
+  margin-top: 1rem;
+  font-size: 0.68rem;
+  letter-spacing: 3px;
+  color: var(--gold-champagne);
+  text-transform: uppercase;
+}
+
+@keyframes pulseRipple {
+  0% { transform: scale(0.8); opacity: 0.9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* ==========================================================================
+   SCENE 4: SIGNATURE WEDDING STORIES (Filterable Horizontal Slider)
+   ========================================================================== */
+.stories-scene {
+  padding: 8rem 0;
+  background-color: var(--bg-aakar-crimson);
+  background-image: 
+    linear-gradient(rgba(42, 16, 19, 0.9), rgba(26, 10, 12, 0.93)),
+    url('aakar_brand_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: center top;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left-to-Right Entrance Animation when scrolling to Scene 4 */
+.stories-scene .section-header,
+.stories-scene .portfolio-filter {
+  opacity: 0;
+  transform: translateX(-120px);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease;
+}
+
+.stories-scene .portfolio-slider-container {
+  opacity: 0;
+  transform: translateX(-150px);
+  transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, opacity 1.1s ease 0.15s;
+}
+
+/* Activated state when user scrolls onto Scene 4 */
+.stories-scene.section-in-view .section-header,
+.stories-scene.section-in-view .portfolio-filter {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.stories-scene.section-in-view .portfolio-slider-container {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.portfolio-filter {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 3.5rem;
+  padding: 0 1.5rem;
+}
+
+.filter-btn {
+  padding: 0.6rem 1.4rem;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: var(--transition-fast);
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+  background: rgba(212, 175, 55, 0.08);
+}
+
+.portfolio-slider-container {
+  position: relative;
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 0 4rem;
+}
+
+.portfolio-slider {
+  display: flex;
+  gap: 2.8rem;
+  overflow-x: auto;
+  scroll-behavior: auto; /* Required for continuous buttery smooth animation */
+  padding: 1.5rem 0.5rem;
+  scrollbar-width: none;
+  align-items: center;
+}
+.portfolio-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.story-card {
+  min-width: 320px;
+  width: 320px;
+  background: var(--bg-aakar-card);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 200px 200px 30px 30px; /* Elegant Luxury Round Arch Silhouette */
+  overflow: hidden;
+  position: relative;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.8rem 1.4rem 2rem;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+.story-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  background: var(--bg-aakar-card-hover);
+  border-color: var(--gold-primary);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 25px rgba(212, 175, 55, 0.2);
+}
+
+.story-thumb-wrap {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%; /* Perfect Round Shape */
+  overflow: hidden;
+  border: 2px solid var(--gold-primary);
+  padding: 5px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  flex-shrink: 0;
+}
+
+.story-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.story-card:hover .story-thumb-wrap img {
+  transform: scale(1.12);
+}
+
+.story-badge {
+  display: none !important;
+}
+
+.story-details {
+  position: static;
+  padding: 1.6rem 0.5rem 0.5rem;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.story-couple {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--text-ivory);
+  letter-spacing: 1px;
+  margin-bottom: 0.4rem;
+  font-weight: 400;
+}
+
+.story-loc {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: var(--gold-primary);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.port-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.75);
+  border: 1px solid var(--border-gold);
+  color: var(--text-ivory);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  z-index: 10;
+  transition: var(--transition-smooth);
+}
+
+.port-arrow:hover {
+  background: var(--gold-primary);
+  color: #000;
+}
+
+.port-prev { left: 0.5rem; }
+.port-next { right: 0.5rem; }
+
+/* ==========================================================================
+   SCENE 5: OUR PHILOSOPHY (Editorial Luxury Split)
+   ========================================================================== */
+.philosophy-scene {
+  padding: 9rem 0;
+  background-color: var(--bg-aakar-crimson);
+  background-image: 
+    linear-gradient(rgba(42, 16, 19, 0.92), rgba(26, 10, 12, 0.94)),
+    url('aakar_brand_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: center top;
+  background-size: cover;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Scene 5 Philosophy Container Whole Rotation Reveal */
+.phil-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 5.5rem;
+  align-items: center;
+  perspective: 1200px;
+  opacity: 0;
+  transform: rotate(-180deg) scale(0.3);
+  transform-origin: center center;
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+/* Activated state when user scrolls onto the section - Whole section (Image + Writing) rounds in */
+.philosophy-scene.section-in-view .phil-container {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.phil-image-col {
+  position: relative;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.phil-text-col {
+  padding-left: 1rem;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.phil-img-wrap {
+  position: relative;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phil-img {
+  width: 500px;
+  height: 500px;
+  max-width: 90vw;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--gold-primary);
+  box-shadow: 0 0 50px rgba(212, 175, 55, 0.4), 0 30px 70px rgba(0,0,0,0.9);
+  position: relative;
+  z-index: 2;
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+}
+
+.phil-img-wrap:hover .phil-img {
+  transform: scale(1.04);
+  box-shadow: 0 0 65px var(--gold-primary), 0 35px 80px rgba(0,0,0,0.95);
+}
+
+.phil-frame {
+  position: absolute;
+  width: 540px;
+  height: 540px;
+  border-radius: 50%;
+  border: 1.5px dashed var(--gold-champagne);
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: counterOrbit 25s linear infinite;
+}
+
+@keyframes counterOrbit {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.phil-experience-badge {
+  position: absolute;
+  bottom: 0rem;
+  right: 0rem;
+  background: rgba(20, 8, 10, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-gold);
+  border-radius: 50px;
+  padding: 1rem 1.6rem;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+}
+
+.exp-num {
+  font-family: var(--font-serif);
+  font-size: 2.8rem;
+  color: var(--gold-primary);
+  line-height: 1;
+}
+
+.exp-txt {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: var(--text-ivory);
+  line-height: 1.3;
+}
+
+.phil-text-col {
+  padding-left: 1rem;
+}
+
+.phil-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  color: var(--text-ivory);
+  margin-bottom: 1.8rem;
+  text-transform: uppercase;
+}
+
+.phil-quote-box {
+  border-left: 2px solid var(--gold-primary);
+  padding-left: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.phil-quote {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--gold-champagne);
+  line-height: 1.6;
+  margin-bottom: 0.6rem;
+}
+
+.phil-author {
+  font-size: 0.68rem;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+}
+
+.phil-body {
+  color: var(--text-beige);
+  font-size: 0.95rem;
+  line-height: 1.9;
+  margin-bottom: 2.5rem;
+}
+
+.phil-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1.8rem;
+}
+
+.pillar i {
+  font-size: 1.3rem;
+  color: var(--gold-primary);
+  margin-bottom: 0.8rem;
+}
+
+.pillar h4 {
+  font-size: 0.95rem;
+  color: var(--text-ivory);
+  margin-bottom: 0.4rem;
+  letter-spacing: 1px;
+}
+
+.pillar p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.phil-actions {
+  display: flex;
+  gap: 1.4rem;
+}
+
+/* ==========================================================================
+   SCENE 6: PRE-WEDDING EXPERIENCE (Asymmetrical Gallery)
+   ========================================================================== */
+.prewedding-scene {
+  padding: 8rem 0;
+  background-color: var(--bg-aakar-crimson);
+  background-image: 
+    linear-gradient(rgba(42, 16, 19, 0.9), rgba(26, 10, 12, 0.93)),
+    url('aakar_brand_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: center top;
+  background-size: cover;
+  overflow: hidden;
+}
+
+/* Left-to-right entrance animation when scrolling to Scene 6 */
+.prewedding-scene .section-header {
+  opacity: 0;
+  transform: translateX(-120px);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease;
+}
+
+.prewedding-scene .asym-gallery {
+  opacity: 0;
+  transform: translateX(-150px);
+  transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, opacity 1.1s ease 0.15s;
+}
+
+/* Activated state when user scrolls onto Scene 6 */
+.prewedding-scene.section-in-view .section-header {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.prewedding-scene.section-in-view .asym-gallery {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.asym-gallery {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 280px;
+  gap: 1.8rem;
+}
+
+.asym-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  background: var(--bg-card);
+}
+
+.asym-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.asym-card:hover img {
+  transform: scale(1.08);
+}
+
+.asym-card.tall {
+  grid-column: span 5;
+  grid-row: span 2;
+}
+
+.asym-card.wide {
+  grid-column: span 7;
+  grid-row: span 1;
+}
+
+.asym-card.square {
+  grid-column: span 3.5;
+  grid-row: span 1;
+}
+
+.asym-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,0.9) 0%, rgba(8,8,8,0.2) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  opacity: 0;
+  transition: var(--transition-smooth);
+}
+
+.asym-card:hover .asym-overlay {
+  opacity: 1;
+}
+
+.asym-location {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--gold-champagne);
+  margin-bottom: 0.3rem;
+}
+
+.asym-overlay h3 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--text-ivory);
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.asym-zoom {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   SCENE 7: OUR SERVICES (Premium Service Cards)
+   ========================================================================== */
+.services-scene {
+  padding: 8rem 0;
+  background-color: var(--bg-aakar-crimson);
+  background-image: 
+    linear-gradient(rgba(42, 16, 19, 0.92), rgba(26, 10, 12, 0.94)),
+    url('aakar_brand_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: center top;
+  background-size: cover;
+  border-top: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+/* Scene 7: Our Bespoke Services Round Spin Reveal Animation */
+.services-scene .section-header {
+  opacity: 0;
+  transform: scale(0.4) rotate(-180deg);
+  transform-origin: center center;
+  transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.services-grid {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2rem;
+  opacity: 0;
+  transform: scale(0.3) rotate(-180deg);
+  transform-origin: center center;
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  will-change: transform, opacity;
+}
+
+/* Activated state when user scrolls onto Scene 7 Services - Whole section rounds in */
+.services-scene.section-in-view .section-header {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.services-scene.section-in-view .services-grid {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.service-card {
+  background: var(--bg-aakar-card);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  background: var(--bg-aakar-card-hover);
+  border-color: var(--border-gold);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.svc-img {
+  height: 260px;
+  overflow: hidden;
+}
+
+.svc-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.service-card:hover .svc-img img {
+  transform: scale(1.08);
+}
+
+.svc-body {
+  padding: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.svc-idx {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--gold-primary);
+  margin-bottom: 0.6rem;
+  letter-spacing: 2px;
+}
+
+.svc-body h3 {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--text-ivory);
+  letter-spacing: 1px;
+  margin-bottom: 0.8rem;
+  font-weight: 400;
+}
+
+.svc-body p {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.svc-inquire-btn {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: var(--gold-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: var(--transition-fast);
+}
+
+.svc-inquire-btn:hover {
+  color: #fff;
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   SCENE 8: PREMIUM BOOKING CTA & FORM
+   ========================================================================== */
+.booking-scene {
+  position: relative;
+  padding: 9rem 0;
+  background-color: var(--bg-aakar-crimson);
+  background-image: 
+    linear-gradient(rgba(42, 16, 19, 0.9), rgba(20, 8, 10, 0.95)),
+    url('aakar_brand_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: center top;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.booking-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(212,175,55,0.06) 0%, transparent 70%);
+}
+
+.booking-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 5rem;
+  align-items: flex-start;
+}
+
+/* Right-to-Left Entrance Animation when scrolling to Scene 8 */
+.booking-intro {
+  padding-right: 1.5rem;
+  opacity: 0;
+  transform: translateX(120px);
+  transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.1s ease;
+}
+
+.booking-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 4.2vw, 3.8rem);
+  letter-spacing: 2px;
+  line-height: 1.2;
+  color: var(--text-ivory);
+  margin-bottom: 1.4rem;
+  text-transform: uppercase;
+}
+
+.booking-sub {
+  color: var(--text-beige);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 2.8rem;
+}
+
+.contact-quick-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.wa-direct-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1rem 2rem;
+  background-color: #25d366;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 1.5px;
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+}
+
+.wa-direct-btn:hover {
+  background-color: #20bd5a;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+}
+
+.quick-contact-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.quick-contact-row i {
+  color: var(--gold-primary);
+  margin-right: 0.6rem;
+}
+
+.booking-form-wrapper {
+  background: var(--bg-aakar-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-gold);
+  padding: 3rem;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+  opacity: 0;
+  transform: translateX(150px);
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, opacity 1.1s ease 0.15s;
+}
+
+/* Activated state when user scrolls onto Scene 8 (Right to Left entrance) */
+.booking-scene.section-in-view .booking-intro {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.booking-scene.section-in-view .booking-form-wrapper {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.form-header {
+  margin-bottom: 2.2rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 1.2rem;
+}
+
+.form-header h3 {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--gold-champagne);
+  letter-spacing: 2px;
+  margin-bottom: 0.4rem;
+}
+
+.form-header p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.luxury-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.4rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.4rem;
+}
+
+.form-group label {
+  font-size: 0.68rem;
+  letter-spacing: 2.5px;
+  color: var(--text-beige);
+  margin-bottom: 0.6rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: #090909;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-ivory);
+  padding: 0.9rem 1.2rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  transition: var(--transition-fast);
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--gold-primary);
+  background: #111;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.form-group select option {
+  background: #121212;
+  color: #fff;
+}
+
+.btn-primary-block {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.1rem;
+  background-color: var(--gold-primary);
+  color: #000;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: 1px solid var(--gold-primary);
+  transition: var(--transition-smooth);
+}
+
+.btn-primary-block:hover {
+  background-color: transparent;
+  color: var(--gold-champagne);
+  box-shadow: 0 0 25px var(--gold-glow);
+}
+
+.booking-alert {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 1px solid;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.booking-alert.success {
+  border-color: #25d366;
+  background: rgba(37, 211, 102, 0.1);
+  color: #25d366;
+}
+
+.booking-alert.error {
+  border-color: #e74c3c;
+  background: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+}
+
+/* ==========================================================================
+   LIGHTBOX & VIDEO MODALS
+   ========================================================================== */
+.lightbox-modal,
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s;
+}
+
+.lightbox-modal.active,
+.video-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-backdrop,
+.video-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 5, 0.94);
+  backdrop-filter: blur(10px);
+}
+
+.lightbox-content {
+  position: relative;
+  z-index: 5;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightbox-figure img {
+  max-width: 85vw;
+  max-height: 80vh;
+  object-fit: contain;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+  border: 1px solid var(--border-gold);
+}
+
+.lightbox-caption {
+  margin-top: 1.2rem;
+  color: var(--text-beige);
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.lightbox-close,
+.video-close {
+  position: absolute;
+  top: -3.5rem;
+  right: 0;
+  font-size: 2.2rem;
+  color: var(--gold-champagne);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.7);
+  border: 1px solid var(--border-gold);
+  color: #fff;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.lightbox-nav:hover {
+  background: var(--gold-primary);
+  color: #000;
+}
+
+.lb-prev { left: -4.5rem; }
+.lb-next { right: -4.5rem; }
+
+.video-modal-content {
+  position: relative;
+  z-index: 5;
+  width: 90vw;
+  max-width: 1000px;
+}
+
+.video-frame-wrap {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-gold);
+}
+
+.video-frame-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.luxury-footer {
+  background-color: var(--bg-aakar-crimson-deep);
+  background-image: 
+    linear-gradient(rgba(26, 10, 12, 0.94), rgba(15, 5, 7, 0.98)),
+    url('aakar_brand_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: center bottom;
+  background-size: cover;
+  border-top: 1px solid var(--border-gold);
+  padding: 6rem 0 2rem;
+}
+
+.footer-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.3fr;
+  gap: 3.5rem;
+}
+
+.footer-logo {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  letter-spacing: 5px;
+  color: var(--text-ivory);
+  margin-bottom: 1.2rem;
+}
+
+.brand-desc {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  max-width: 320px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.footer-socials a {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-primary);
+  font-size: 0.95rem;
+  transition: var(--transition-smooth);
+}
+
+.footer-socials a:hover {
+  background: var(--gold-primary);
+  color: #000;
+  border-color: var(--gold-primary);
+}
+
+.f-col-title {
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  color: var(--gold-champagne);
+  margin-bottom: 1.6rem;
+  text-transform: uppercase;
+}
+
+.f-links li {
+  margin-bottom: 0.8rem;
+}
+
+.f-links a {
+  color: var(--text-beige);
+  font-size: 0.86rem;
+  transition: var(--transition-fast);
+}
+
+.f-links a:hover {
+  color: var(--gold-primary);
+  padding-left: 5px;
+}
+
+.f-info-item {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.f-info-item i {
+  color: var(--gold-primary);
+}
+
+.footer-bottom {
+  margin-top: 5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.footer-bottom-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.copyright {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.footer-legal {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.footer-legal a:hover {
+  color: var(--gold-primary);
+}
+
+/* Floating Controls */
+.floating-controls {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 990;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.float-wa {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  transition: transform 0.3s;
+}
+
+.float-wa:hover {
+  transform: scale(1.1);
+}
+
+.back-to-top {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #111;
+  border: 1px solid var(--border-gold);
+  color: var(--gold-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-smooth);
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background: var(--gold-primary);
+  color: #000;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (Tablets & Mobile)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .cinematic-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .phil-container {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+  
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .booking-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  
+  .asym-gallery {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  
+  .asym-card.tall {
+    grid-column: span 6;
+    grid-row: span 2;
+  }
+  
+  .asym-card.wide {
+    grid-column: span 6;
+  }
+  
+  .asym-card.square {
+    grid-column: span 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    height: 100vh;
+    background: #090909;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem;
+    transition: right 0.4s ease;
+    border-left: 1px solid var(--border-gold);
+  }
+  
+  .nav-links.open {
+    right: 0;
+  }
+  
+  .hamburger-btn {
+    display: flex;
+  }
+  
+  .nav-actions .btn-gold-sm {
+    display: none;
+  }
+  
+  .hero-nav {
+    display: none;
+  }
+  
+  .slide-title {
+    font-size: 2.2rem;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .asym-gallery {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 300px;
+  }
+  
+  .asym-card.tall,
+  .asym-card.wide,
+  .asym-card.square {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  
+  .luxury-form .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .booking-form-wrapper {
+    padding: 2rem 1.5rem;
+  }
+  
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .story-card {
+    min-width: 300px;
+  }
+  
+  .collection-card {
+    width: 310px;
+  }
+  
+  .lb-prev { left: 0; }
+  .lb-next { right: 0; }
+}
